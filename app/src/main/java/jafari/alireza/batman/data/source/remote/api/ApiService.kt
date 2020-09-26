@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 interface ApiService {
 
-    @GET()
+    @GET("/")
     fun getSearch(
         @Query("s") search: String = "batman",
     ): Observable<SearchNetworkResponse>

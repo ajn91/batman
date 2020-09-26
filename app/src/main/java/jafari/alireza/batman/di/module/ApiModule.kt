@@ -21,7 +21,9 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 
-@Module
+@Module(
+)
+
 class ApiModule {
 
     @Provides
@@ -41,8 +43,8 @@ class ApiModule {
 
     @Provides
     @Singleton
-    internal fun provideNetworkInterceptor(application: Application, networkUtil: NetworkUtil) =
-        NetworkInterceptor(application.applicationContext, networkUtil)
+    internal fun provideNetworkInterceptor(networkUtil: NetworkUtil) =
+        NetworkInterceptor(networkUtil)
 
 
     @Provides
@@ -55,9 +57,9 @@ class ApiModule {
         logging.level = HttpLoggingInterceptor.Level.BODY
         val httpClient = OkHttpClient.Builder()
         httpClient.cache(cache)
-        httpClient.addInterceptor(networkInterceptor)
+        httpClient.addInterceptor(RequestInterceptor())
         httpClient.addInterceptor(logging)
-        httpClient.addNetworkInterceptor(RequestInterceptor())
+        httpClient.addNetworkInterceptor(networkInterceptor)
         httpClient.connectTimeout(30, TimeUnit.SECONDS)
         httpClient.readTimeout(30, TimeUnit.SECONDS)
         return httpClient.build()

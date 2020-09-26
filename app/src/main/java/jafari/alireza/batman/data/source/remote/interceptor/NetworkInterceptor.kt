@@ -1,14 +1,11 @@
 package jafari.alireza.batman.data.source.remote.interceptor
 
-import android.content.Context
 import jafari.alireza.batman.utils.NetworkUtil
 import okhttp3.Interceptor
 import okhttp3.Response
-
 import java.io.IOException
-import javax.inject.Inject
 
-class NetworkInterceptor @Inject constructor(val context: Context, val networkUtil: NetworkUtil) :
+class NetworkInterceptor constructor(val networkUtil: NetworkUtil) :
     Interceptor {
 
     @Throws(IOException::class)

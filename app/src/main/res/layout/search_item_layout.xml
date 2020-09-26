@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.example.android.devbyteviewer.domain.SearchModel" />
+            type="jafari.alireza.batman.data.domain.SearchModel" />
 
     </data>
 
@@ -20,12 +20,13 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/img_category_icon"
-            android:layout_width="@dimen/search_icon_width"
-            android:layout_height="@dimen/search_icon_height"
-            android:layout_marginStart="16dp"
-            android:background="@drawable/item_rounded_background_accent"
-            android:padding="12dp"
-            android:scaleType="fitCenter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:adjustViewBounds="true"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,43 +35,26 @@
             style="@style/TextStyle.Title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp"
             android:text="@{item.title}"
-            app:layout_constraintBottom_toTopOf="@+id/txt_type"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/img_category_icon"
-            app:layout_constraintTop_toTopOf="@+id/img_category_icon"
-            app:layout_constraintVertical_chainStyle="spread"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/img_category_icon"
+            app:layout_constraintStart_toStartOf="@+id/img_category_icon"
+            app:layout_constraintTop_toBottomOf="@+id/img_category_icon"
             tools:text="TextView" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/txt_year"
+            android:id="@+id/txt_type_year"
             style="@style/TextStyle.SubTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
             android:layout_marginTop="4dp"
-            android:layout_marginEnd="4dp"
             android:background="@drawable/rounded_transparent_background_white"
-            android:text="@{String.format(item.year)}"
-            app:layout_constraintEnd_toEndOf="@+id/img_category_icon"
+            android:text="@{String.format(@string/item_type_year, item.type,item.year)}"
+            app:layout_constraintStart_toStartOf="@+id/img_category_icon"
             app:layout_constraintTop_toTopOf="@+id/img_category_icon"
-            tools:text="2020" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/txt_type"
-            style="@style/TextStyle.SubTitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="16dp"
-            android:text="@{item.type}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/txt_title"
-            app:layout_constraintTop_toBottomOf="@+id/txt_title"
             app:layout_constraintVertical_chainStyle="spread_inside"
             tools:text="TextView" />
 

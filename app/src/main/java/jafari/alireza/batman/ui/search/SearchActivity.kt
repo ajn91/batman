@@ -2,14 +2,13 @@ package jafari.alireza.foursquare.ui.search
 
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import jafari.alireza.batman.BR
 import jafari.alireza.batman.R
+import jafari.alireza.batman.data.domain.SearchModel
 import jafari.alireza.batman.databinding.SearchActivityBinding
 import jafari.alireza.batman.ui.appinterface.AdapterInterface
 import jafari.alireza.batman.ui.base.BaseActivity
-import jafari.alireza.batman.utils.UiUtils
-
 import javax.inject.Inject
 
 
@@ -21,7 +20,7 @@ class SearchActivity : BaseActivity<SearchActivityBinding, SearchViewModel>(),
     internal lateinit var viewModelFactory: ViewModelProvider.Factory
 
     @Inject
-    lateinit var exploreAdapter: ExploreAdapter
+    lateinit var searchAdapter: SearchAdapter
 
 
     override fun getBindingVariable(): Pair<Int, Any?> {
@@ -35,7 +34,13 @@ class SearchActivity : BaseActivity<SearchActivityBinding, SearchViewModel>(),
     override fun setViewModel() {
         mViewModel =
             ViewModelProvider(this, viewModelFactory).get(SearchViewModel::class.java)
+        mViewModel?.itemsLive?.observe(this, ::fillList)
 
+    }
+
+    private fun fillList(list: List<SearchModel>?) {
+        if (list != null)
+            searchAdapter.setItems(list)
 
     }
 
@@ -52,15 +57,16 @@ class SearchActivity : BaseActivity<SearchActivityBinding, SearchViewModel>(),
     }
 
     private fun setUpList() {
-        val layoutManager = LinearLayoutManager(this)
+        val spanCount = resources.getInteger(R.integer.search_list_span_count)
+        val layoutManager = GridLayoutManager(this, spanCount)
 
         viewDataBinding?.rcv?.apply {
             this.layoutManager = layoutManager
-            adapter = exploreAdapter
-            addItemDecoration(UiUtils.createDivider(this@SearchActivity))
+            adapter = searchAdapter
+//            addItemDecoration(UiUtils.createDivider(this@SearchActivity))
 
         }
-        exploreAdapter.onItemClickListener = this
+        searchAdapter.onItemClickListener = this
 
     }
 

@@ -54,6 +54,10 @@ abstract class BaseActivity<T : ViewDataBinding, V : BaseViewModel> : AppCompatA
 
     }
 
+    override fun onDestroy() {
+        mViewModel?.onStop()
+        super.onDestroy()
+    }
 
 }
 

@@ -18,6 +18,8 @@ open class BaseViewModel : ViewModel() {
 
     protected fun isDisposableEmpty() = compositeDisposable.size() == 0
     open fun onStop() {
+        if (!compositeDisposable.isDisposed)
+            compositeDisposable.dispose()
         compositeDisposable.clear()
     }
 

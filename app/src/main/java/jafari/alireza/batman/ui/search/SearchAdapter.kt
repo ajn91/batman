@@ -4,18 +4,18 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.android.devbyteviewer.domain.SearchModel
+import jafari.alireza.batman.data.domain.SearchModel
 import jafari.alireza.batman.databinding.SearchItemLayoutBinding
 import jafari.alireza.batman.ui.appinterface.AdapterInterface
 import jafari.alireza.batman.utils.ImageUtil
 import javax.inject.Inject
 
 
-class ExploreAdapter @Inject constructor() :
-    RecyclerView.Adapter<ExploreAdapter.ItemViewHolder>() {
+class SearchAdapter @Inject constructor() :
+    RecyclerView.Adapter<SearchAdapter.ItemViewHolder>() {
     var onItemClickListener: AdapterInterface.OnItemClickListener? = null
 
-    var mItems = emptyList<SearchModel>()
+    private var mItems = emptyList<SearchModel>()
     fun setItems(items: List<SearchModel>) {
         val diffCallback = DiffCallback(mItems, items)
         val diffResult = DiffUtil.calculateDiff(diffCallback, true)

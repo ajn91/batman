@@ -16,9 +16,9 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 
 data class SearchNetwork(
 
-	@SerializedName("Title") val title: String,
-	@SerializedName("Year") val year: Int,
-	@SerializedName("imdbID") val imdbID: String,
-	@SerializedName("Type") val type: String,
-	@SerializedName("Poster") val poster: String
+    @SerializedName("Title") val title: String,
+    @SerializedName("Year") val year: String,
+    @SerializedName("imdbID") val imdbID: String,
+    @SerializedName("Type") val type: String,
+    @SerializedName("Poster") val poster: String
 )

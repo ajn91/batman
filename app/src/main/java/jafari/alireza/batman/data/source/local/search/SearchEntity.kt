@@ -2,7 +2,7 @@ package com.example.android.devbyteviewer.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.android.devbyteviewer.domain.SearchModel
+import jafari.alireza.batman.data.domain.SearchModel
 
 
 /**
@@ -19,7 +19,7 @@ data class SearchEntity constructor(
     @PrimaryKey
     val imdbID: String,
     val title: String,
-    val year: Int,
+    val year: String,
     val type: String,
     val poster: String
 )

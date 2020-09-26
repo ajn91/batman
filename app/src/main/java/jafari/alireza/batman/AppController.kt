@@ -1,12 +1,12 @@
 package jafari.alireza.batman
 
 import android.app.Application
-import android.content.Context
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import jafari.alireza.batman.di.component.DaggerApiComponent
 import jafari.alireza.batman.di.module.ApiModule
+import jafari.alireza.batman.di.module.AppModule
 import jafari.alireza.batman.di.module.DbModule
 import javax.inject.Inject
 
@@ -20,9 +20,8 @@ class AppController : Application(), HasAndroidInjector {
 
     override fun onCreate() {
         super.onCreate()
-        appContext = this
         DaggerApiComponent.builder()
-            .application(this)
+            .appModule(AppModule(this))
             .apiModule(ApiModule())
             .dbModule(DbModule())
             .build()
@@ -30,8 +29,5 @@ class AppController : Application(), HasAndroidInjector {
 
     }
 
-    companion object {
-        lateinit var appContext: Context
-    }
 
 }

@@ -9,6 +9,6 @@ import jafari.alireza.foursquare.ui.search.SearchActivity
 @Module
 abstract class ActivityModule {
 
-    @ContributesAndroidInjector()
+    @ContributesAndroidInjector(modules = [ViewModelModule::class])
     abstract fun contributeSearchActivity(): SearchActivity
 }
