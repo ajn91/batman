@@ -1,4 +1,4 @@
-package jafari.alireza.batman.data.remote.interceptor
+package jafari.alireza.batman.data.source.remote.interceptor
 
 
 import jafari.alireza.batman.AppConstants

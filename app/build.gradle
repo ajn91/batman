@@ -72,10 +72,11 @@ dependencies {
     /* Okhttp */
     implementation "com.squareup.okhttp3:logging-interceptor:$library.okhttp"
 
+    /* RxJava2 */
+    implementation "io.reactivex.rxjava2:rxjava:$library.rxjava"
+    implementation "com.jakewharton.rxrelay2:rxrelay:$library.rxrelay"
+    implementation "io.reactivex.rxjava2:rxandroid:$library.rxandroid"
 
-    /* kotlin Coroutine */
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$library.coroutines"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$library.coroutines"
 
     /* Android Architecture Component - ConstraintLayout  */
     implementation "androidx.constraintlayout:constraintlayout:$library.constraintlayout"

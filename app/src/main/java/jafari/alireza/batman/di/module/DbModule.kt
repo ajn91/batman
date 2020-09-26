@@ -5,7 +5,7 @@ import androidx.room.Room
 import com.example.android.devbyteviewer.database.AppDatabase
 import dagger.Module
 import dagger.Provides
-import jafari.alireza.batman.data.database.search.SearchDao
+import jafari.alireza.batman.data.source.local.search.SearchDao
 import javax.inject.Singleton
 
 @Module

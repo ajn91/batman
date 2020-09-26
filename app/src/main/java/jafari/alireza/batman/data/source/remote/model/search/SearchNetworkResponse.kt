@@ -1,4 +1,4 @@
-package jafari.alireza.batman.data.remote.model.search
+package jafari.alireza.batman.data.source.remote.model.search
 
 import com.example.android.devbyteviewer.database.SearchEntity
 import com.example.android.devbyteviewer.domain.SearchModel

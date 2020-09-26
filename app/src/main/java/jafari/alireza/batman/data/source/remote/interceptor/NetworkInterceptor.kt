@@ -1,17 +1,20 @@
-package jafari.alireza.batman.data.remote.interceptor
+package jafari.alireza.batman.data.source.remote.interceptor
 
 import android.content.Context
+import jafari.alireza.batman.utils.NetworkUtil
 import okhttp3.Interceptor
 import okhttp3.Response
 
 import java.io.IOException
+import javax.inject.Inject
 
-class NetworkInterceptor(private val context: Context) : Interceptor {
+class NetworkInterceptor @Inject constructor(val context: Context, val networkUtil: NetworkUtil) :
+    Interceptor {
 
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
-        if (ConnectivityStatus.isConnected(context)) {
+        if (networkUtil.isConnectedToInternet()) {
             request.newBuilder()
                 .header("Cache-Control", "public, max-age=" + 60)
                 .build()

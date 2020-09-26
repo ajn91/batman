@@ -2,15 +2,16 @@ package jafari.alireza.batman.utils
 
 import android.content.Context
 import android.net.ConnectivityManager
+import javax.inject.Inject
 
-object NetworkUtil {
-    fun isNetworkConnected(context: Context): Boolean {
+class NetworkUtil @Inject constructor(private val context: Context) {
+
+    fun isConnectedToInternet(): Boolean {
         val cm =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
-        if (cm != null) {
-            val activeNetwork = cm.activeNetworkInfo
-            return activeNetwork != null && activeNetwork.isConnected
-        }
-        return false
+
+        return cm != null && cm.activeNetworkInfo != null && cm.activeNetworkInfo!!.isConnected
+
     }
 }
+

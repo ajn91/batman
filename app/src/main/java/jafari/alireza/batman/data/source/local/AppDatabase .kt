@@ -2,7 +2,7 @@ package com.example.android.devbyteviewer.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import jafari.alireza.batman.data.database.search.SearchDao
+import jafari.alireza.batman.data.source.local.search.SearchDao
 
 
 @Database(entities = [SearchEntity::class], version = 1)

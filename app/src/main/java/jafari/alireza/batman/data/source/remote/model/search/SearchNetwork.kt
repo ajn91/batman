@@ -1,4 +1,4 @@
-package jafari.alireza.batman.data.remote.model.search
+package jafari.alireza.batman.data.source.remote.model.search
 
 import com.google.gson.annotations.SerializedName
 

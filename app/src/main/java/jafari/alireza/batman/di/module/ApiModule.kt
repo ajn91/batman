@@ -5,8 +5,11 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
-import jafari.alireza.batman.data.remote.interceptor.NetworkInterceptor
-import jafari.alireza.batman.data.remote.interceptor.RequestInterceptor
+import jafari.alireza.batman.AppConstants
+import jafari.alireza.batman.data.source.remote.interceptor.NetworkInterceptor
+import jafari.alireza.batman.data.source.remote.interceptor.RequestInterceptor
+import jafari.alireza.batman.utils.NetworkUtil
+import jafari.alireza.foursquare.data.remote.api.ApiService
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -23,10 +26,9 @@ class ApiModule {
 
     @Provides
     @Singleton
-    internal fun provideGson(): Gson {
-        val gsonBuilder = GsonBuilder()
-        return gsonBuilder.create()
-    }
+    internal fun provideGson() =
+        GsonBuilder().create()
+
 
     @Provides
     @Singleton
@@ -39,9 +41,9 @@ class ApiModule {
 
     @Provides
     @Singleton
-    internal fun provideNetworkInterceptor(application: Application): NetworkInterceptor {
-        return NetworkInterceptor(application.applicationContext)
-    }
+    internal fun provideNetworkInterceptor(application: Application, networkUtil: NetworkUtil) =
+        NetworkInterceptor(application.applicationContext, networkUtil)
+
 
     @Provides
     @Singleton
@@ -51,7 +53,6 @@ class ApiModule {
     ): OkHttpClient {
         val logging = HttpLoggingInterceptor()
         logging.level = HttpLoggingInterceptor.Level.BODY
-
         val httpClient = OkHttpClient.Builder()
         httpClient.cache(cache)
         httpClient.addInterceptor(networkInterceptor)
@@ -66,19 +67,18 @@ class ApiModule {
     @Singleton
     internal fun provideRetrofit(gson: Gson, okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
+            .client(okHttpClient)
+            .baseUrl(AppConstants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-//            .baseUrl(AppConstants.BASE_URL)
-            .client(okHttpClient)
             .build()
     }
 
 
-//    @Provides
-//    @Singleton
-//    internal fun provideUserApiService(retrofit: Retrofit): ApiService {
-//        return retrofit.create(ApiService::class.java)
-//    }
+    @Provides
+    @Singleton
+    internal fun provideApiService(retrofit: Retrofit) =
+        retrofit.create(ApiService::class.java)
 
 
 }
