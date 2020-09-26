@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <color name="colorPrimary">#ff253d55</color>
+    <color name="colorPrimaryDark">#ff1a2b3c</color>
+    <color name="colorAccent">#0066b3</color>
+    <color name="colorAccentTransparent">#220066b3</color>
+    <color name="backgroundColor">#fffafafa</color>
+    <color name="textColorToolbarExpanded">#fff</color>
+    <color name="ButtonTextColor">#fff</color>
+    <color name="commonTextColor">#393a38</color>
+    <color name="textTitleColor">#000</color>
+    <color name="textSubTitleColor">#222</color>
+    <color name="toolbarBackgroundColor">#fff</color>
+    <color name="dividerColor">#B1A8A8</color>
+    <color name="dialogBackgroundColor">#aadedede</color>
+    <color name="ic_launcher_background">#3DDC84</color>
+
+</resources>
+

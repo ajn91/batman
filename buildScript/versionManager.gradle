@@ -1,0 +1,30 @@
+ext {
+
+    applicationBuild = [
+            compileSdkVersion: 29,
+            buildToolsVersion: '29.0.3',
+            targetSdkVersion : 29,
+            minSdkVersion    : 17
+    ]
+
+    application = [
+            versionCode: 1,
+            versionName: "1.0.0"
+    ]
+
+    library = [
+            kotlin             : '1.4.10',
+            appcompat          : '1.2.0',
+            material           : '1.2.1',
+            recyclerview       : '1.1.0',
+            room               : '2.2.5',
+            lifecycle          : '2.2.0',
+            coroutines         : '1.3.9',
+            constraintlayout   : '2.0.1',
+            dagger             : '2.28.3',
+            retrofit           : '2.9.0',
+            okhttp             : '4.8.1',
+            glide             : '4.11.0'
+    ]
+
+}
