@@ -13,7 +13,7 @@
     <color name="toolbarBackgroundColor">#fff</color>
     <color name="dividerColor">#B1A8A8</color>
     <color name="dialogBackgroundColor">#aadedede</color>
-    <color name="ic_launcher_background">#3DDC84</color>
+    <color name="whiteTransparent">#6fff</color>
 
 </resources>
 

@@ -13,4 +13,29 @@
 
     </style>
 
+    <style name="TextStyle" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/commonTextColor</item>
+        <item name="android:lineSpacingExtra">2dp</item>
+    </style>
+
+    <style name="TextStyle.Title">
+        <item name="android:textSize">@dimen/text_title_size</item>
+        <item name="android:textColor">@color/textTitleColor</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
+    <style name="TextStyle.SubTitle">
+        <item name="android:textSize">@dimen/text_sub_title_size</item>
+        <item name="android:textColor">@color/textSubTitleColor</item>
+    </style>
+
+    <style name="MainToolbarStyle" parent="Widget.MaterialComponents.Toolbar.Primary">
+        <item name="android:background">@color/backgroundColor</item>
+        <item name="titleTextColor">@color/textTitleColor</item>
+        <item name="colorControlNormal">@color/textTitleColor</item>
+    </style>
+
 </resources>

@@ -11,13 +11,13 @@ object ImageUtil {
     fun showImage(
         context: Context?,
         url: String?,
-        @DrawableRes placeHolder: Int,
-        imageView: ImageView
+        imageView: ImageView,
+        @DrawableRes placeHolder: Int? = null
     ) {
         if (context != null) {
             Glide.with(context)
                 .load(url)
-                .placeholder(placeHolder)
+//                .placeholder(placeHolder)
                 .dontAnimate()
 //                .transition(DrawableTransitionOptions.withCrossFade())
                 .into(imageView)
