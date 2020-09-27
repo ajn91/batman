@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import jafari.alireza.batman.data.domain.SearchModel
+import jafari.alireza.batman.data.domain.search.SearchModel
 import jafari.alireza.batman.databinding.SearchItemLayoutBinding
 import jafari.alireza.batman.ui.appinterface.AdapterInterface
 import jafari.alireza.batman.utils.ImageUtil

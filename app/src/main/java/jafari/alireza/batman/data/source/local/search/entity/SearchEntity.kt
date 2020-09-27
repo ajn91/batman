@@ -2,7 +2,7 @@ package com.example.android.devbyteviewer.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import jafari.alireza.batman.data.domain.SearchModel
+import jafari.alireza.batman.data.domain.search.SearchModel
 
 
 /**

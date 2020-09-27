@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import jafari.alireza.batman.BR
 import jafari.alireza.batman.R
-import jafari.alireza.batman.data.domain.SearchModel
+import jafari.alireza.batman.data.domain.search.SearchModel
 import jafari.alireza.batman.databinding.SearchActivityBinding
 import jafari.alireza.batman.ui.appinterface.AdapterInterface
 import jafari.alireza.batman.ui.base.BaseActivity

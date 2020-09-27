@@ -1,4 +1,4 @@
-package jafari.alireza.batman.data.domain
+package jafari.alireza.batman.data.domain.search
 
 
 /**

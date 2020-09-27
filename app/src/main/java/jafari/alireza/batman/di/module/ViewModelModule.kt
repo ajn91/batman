@@ -7,6 +7,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 import jafari.alireza.batman.factory.ViewModelFactory
+import jafari.alireza.foursquare.ui.search.DetailsViewModel
 import jafari.alireza.foursquare.ui.search.SearchViewModel
 
 
@@ -20,5 +21,10 @@ internal abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(SearchViewModel::class)
     protected abstract fun searchViewModel(viewModel: SearchViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(DetailsViewModel::class)
+    protected abstract fun detailsViewModel(viewModel: DetailsViewModel): ViewModel
 
 }

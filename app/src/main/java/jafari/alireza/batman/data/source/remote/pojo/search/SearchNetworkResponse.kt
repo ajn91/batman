@@ -1,8 +1,8 @@
-package jafari.alireza.batman.data.source.remote.model.search
+package jafari.alireza.batman.data.source.remote.pojo.search
 
 import com.example.android.devbyteviewer.database.SearchEntity
 import com.google.gson.annotations.SerializedName
-import jafari.alireza.batman.data.domain.SearchModel
+import jafari.alireza.batman.data.domain.search.SearchModel
 
 
 data class SearchNetworkResponse(
@@ -30,14 +30,14 @@ fun SearchNetworkResponse.asDomainModel(): List<SearchModel> {
 /**
  * Convert Network results to database objects
  */
-fun SearchNetworkResponse.asDatabaseModel(): List<SearchEntity> {
+fun SearchNetworkResponse.asDatabaseEntity(): List<SearchEntity> {
     return searchNetworks.map {
         SearchEntity(
-			imdbID = it.imdbID,
-			title = it.title,
-			year = it.year,
-			type = it.type,
-			poster = it.poster
-		)
+            imdbID = it.imdbID,
+            title = it.title,
+            year = it.year,
+            type = it.type,
+            poster = it.poster
+        )
     }
 }

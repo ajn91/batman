@@ -38,4 +38,7 @@
         <item name="colorControlNormal">@color/textTitleColor</item>
     </style>
 
+    <style name="TextStyle.Title.ToolbarExpanded">
+        <item name="android:textColor">@color/textColorToolbarExpanded</item>
+    </style>
 </resources>

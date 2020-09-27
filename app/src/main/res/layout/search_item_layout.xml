@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="jafari.alireza.batman.data.domain.SearchModel" />
+            type="jafari.alireza.batman.data.domain.search.SearchModel" />
 
     </data>
 

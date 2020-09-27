@@ -6,8 +6,8 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import jafari.alireza.batman.data.domain.SearchModel
-import jafari.alireza.batman.data.repository.SearchRepository
+import jafari.alireza.batman.data.domain.search.SearchModel
+import jafari.alireza.batman.data.repository.search.SearchRepository
 import jafari.alireza.batman.ui.base.BaseViewModel
 import javax.inject.Inject
 

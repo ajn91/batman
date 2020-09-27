@@ -1,44 +1,43 @@
-package jafari.alireza.batman.data.repository
+package jafari.alireza.batman.data.repository.search
 
 import android.util.Log
-import com.example.android.devbyteviewer.database.asDomainModel
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
-import jafari.alireza.batman.data.domain.SearchModel
-import jafari.alireza.batman.data.source.local.search.SearchDao
-import jafari.alireza.batman.data.source.remote.model.search.asDatabaseModel
+import jafari.alireza.batman.data.domain.derails.DetailsModel
+import jafari.alireza.batman.data.source.local.details.DetailsDao
+import jafari.alireza.batman.data.source.local.details.asDomainModel
+import jafari.alireza.batman.data.source.remote.pojo.details.asDatabaseEntity
 import jafari.alireza.batman.utils.NetworkUtil
 import jafari.alireza.foursquare.data.remote.api.ApiService
 import javax.inject.Inject
 
-class SearchRepositoryImp @Inject constructor(
+class DetailsRepositoryImp @Inject constructor(
     val apiService: ApiService,
-    val searchDao: SearchDao,
+    val detailsDao: DetailsDao,
     val networkUtil: NetworkUtil
-) : SearchRepository {
+) : DetailsRepository {
 
-    override fun getSearch(): Observable<List<SearchModel>> {
+    override fun getDetails(id: String): Observable<DetailsModel> {
 
         val hasConnection = networkUtil.isConnectedToInternet()
 //        var observableFromApi: Observable<List<SearchModel>>? = null
         if (hasConnection)
 //            observableFromApi =
-            getSearchFromApi()
+            getSearchFromApi(id)
 //        }
-        val observableFromDb = getSearchFromDb()
+//        val observableFromDb = getSearchFromDb(id)
 
 //        return if (hasConnection) Observable.concatArrayEager(observableFromDb,observableFromApi)
 //        else observableFromDb
-        return getSearchFromDb()
+        return getSearchFromDb(id)
     }
 
-    fun getSearchFromApi() =
-        apiService.getSearch().subscribeOn(Schedulers.io())
+    fun getSearchFromApi(id: String) =
+        apiService.getDetails(id).subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .subscribe({ response ->
                 Log.d("LOG", "getSearchFromApi: ")
-
-                searchDao.insertAll(response.asDatabaseModel())
+                detailsDao.insertDetailsItem(response.asDatabaseEntity())
 
             }, { error ->
 //        messageStringLive.value = error.message
@@ -51,10 +50,8 @@ class SearchRepositoryImp @Inject constructor(
 //            }.map { it.asDomainModel() }
 
 
-    fun getSearchFromDb(): Observable<List<SearchModel>> =
-        searchDao.getSearches().map {
-            Log.d("LOG", "getSearchFromDb: ")
-            it.asDomainModel()
-        }
+    fun getSearchFromDb(id: String): Observable<DetailsModel> =
+        detailsDao.getDetailsItem(id).map { it.asDomainModel() }
+
 
 }
