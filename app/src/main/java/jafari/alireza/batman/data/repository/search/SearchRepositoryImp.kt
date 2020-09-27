@@ -1,11 +1,14 @@
 package jafari.alireza.batman.data.repository.search
 
+import android.content.Context
 import android.util.Log
 import com.example.android.devbyteviewer.database.asDomainModel
-import io.reactivex.Observable
+import io.reactivex.Flowable
 import io.reactivex.schedulers.Schedulers
+import jafari.alireza.batman.R
 import jafari.alireza.batman.data.domain.search.SearchModel
 import jafari.alireza.batman.data.source.local.search.SearchDao
+import jafari.alireza.batman.data.source.remote.Resource
 import jafari.alireza.batman.data.source.remote.pojo.search.asDatabaseEntity
 import jafari.alireza.batman.utils.NetworkUtil
 import jafari.alireza.foursquare.data.remote.api.ApiService
@@ -14,22 +17,30 @@ import javax.inject.Inject
 class SearchRepositoryImp @Inject constructor(
     val apiService: ApiService,
     val searchDao: SearchDao,
-    val networkUtil: NetworkUtil
+    val networkUtil: NetworkUtil,
+    val context: Context
 ) : SearchRepository {
 
-    override fun getSearch(): Observable<List<SearchModel>> {
+    override fun getSearch(): Flowable<Resource<List<SearchModel>>> {
 
         val hasConnection = networkUtil.isConnectedToInternet()
-//        var observableFromApi: Observable<List<SearchModel>>? = null
         if (hasConnection)
-//            observableFromApi =
             getSearchFromApi()
-//        }
-//        val observableFromDb = getSearchFromDb()
 
-//        return if (hasConnection) Observable.concatArrayEager(observableFromDb,observableFromApi)
-//        else observableFromDb
-        return getSearchFromDb()
+        return getSearchFromDb().map {
+            if (it.size == 0) {
+                if (hasConnection)
+                    Resource.error(context.getString(R.string.empty_data), it)
+                else
+                    Resource.error(context.getString(R.string.empty_data_no_network), it)
+            } else
+                Resource.success(it)
+        }.startWith(Resource.loading(null))
+            .onErrorReturn {
+                Resource.error(it.message ?: "error", null)
+            }
+
+
     }
 
     fun getSearchFromApi() =
@@ -51,7 +62,7 @@ class SearchRepositoryImp @Inject constructor(
 //            }.map { it.asDomainModel() }
 
 
-    fun getSearchFromDb(): Observable<List<SearchModel>> =
+    fun getSearchFromDb(): Flowable<List<SearchModel>> =
         searchDao.getSearches().map {
             Log.d("LOG", "getSearchFromDb: ")
             it.asDomainModel()

@@ -2,13 +2,15 @@ package jafari.alireza.foursquare.ui.search
 
 
 import android.app.Application
-import android.util.Log
+import android.os.Bundle
 import androidx.lifecycle.MutableLiveData
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import jafari.alireza.batman.data.domain.search.SearchModel
 import jafari.alireza.batman.data.repository.search.SearchRepository
+import jafari.alireza.batman.data.source.remote.Resource
 import jafari.alireza.batman.ui.base.BaseViewModel
+import jafari.alireza.batman.utils.DirectionParamName
 import javax.inject.Inject
 
 class SearchViewModel @Inject
@@ -16,7 +18,8 @@ constructor(
     val searchRepository: SearchRepository,
     val application: Application,
 ) : BaseViewModel() {
-    val itemsLive = MutableLiveData<List<SearchModel>>()
+    val itemsLive = MutableLiveData<Resource<List<SearchModel>>>()
+    val directToPageLive = MutableLiveData<DirectionParamName>()
 
 
     init {
@@ -30,16 +33,22 @@ constructor(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ response ->
-                    Log.d("LOG", "getSearch: ${response.size}")
-                    if (response != null)
-                        itemsLive.postValue(response)
-
+                    itemsLive.postValue(response)
                 }, { error ->
+
                     messageStringLive.value = error.message
                 })
         )
     }
 
+    fun onItemClick(position: Int) {
+        val id = itemsLive.value?.data?.get(position)?.imdbID
+        if (id != null) {
+            val bundle = Bundle()
+            directToPageLive.value = DirectionParamName.DetailsParams(id)
+        }
+
+    }
 
 }
 

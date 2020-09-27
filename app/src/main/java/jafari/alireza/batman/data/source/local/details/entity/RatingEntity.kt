@@ -1,7 +1,7 @@
-package jafari.alireza.batman.data.source.local.details
+package jafari.alireza.batman.data.source.local.details.entity
 
 
-import jafari.alireza.batman.data.domain.derails.RatingModel
+import jafari.alireza.batman.data.domain.details.RatingModel
 
 data class RatingEntity(
     val source: String,

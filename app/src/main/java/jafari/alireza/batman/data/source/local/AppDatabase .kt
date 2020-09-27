@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.parax.panda.data.local.converter.RatingTypeConverter
 import jafari.alireza.batman.data.source.local.details.DetailsDao
-import jafari.alireza.batman.data.source.local.details.DetailsEntity
+import jafari.alireza.batman.data.source.local.details.entity.DetailsEntity
 import jafari.alireza.batman.data.source.local.search.SearchDao
 
 

@@ -1,4 +1,4 @@
-package jafari.alireza.batman.data.domain.derails
+package jafari.alireza.batman.data.domain.details
 
 
 data class RatingModel(

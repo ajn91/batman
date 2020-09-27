@@ -3,7 +3,7 @@ package com.parax.panda.data.local.converter
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import jafari.alireza.batman.data.source.local.details.RatingEntity
+import jafari.alireza.batman.data.source.local.details.entity.RatingEntity
 
 class RatingTypeConverter {
 

@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">Batman</string>
     <string name="item_type_year">%1s-%2s</string>
+    <string name="genre">Genre</string>
+    <string name="director">Director</string>
+    <string name="actors">Actors</string>
+    <string name="writer">Writer</string>
+    <string name="loading">Loading…</string>
+    <string name="empty_data">No data to show</string>
+    <string name="empty_data_no_network">No data to show please check your internet connectivity</string>
 
 
 </resources>

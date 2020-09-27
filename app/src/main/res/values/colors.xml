@@ -5,7 +5,7 @@
     <color name="colorAccent">#0066b3</color>
     <color name="colorAccentTransparent">#220066b3</color>
     <color name="backgroundColor">#fffafafa</color>
-    <color name="textColorToolbarExpanded">#fff</color>
+    <color name="textColorToolbarExpanded">#0000</color>
     <color name="ButtonTextColor">#fff</color>
     <color name="commonTextColor">#393a38</color>
     <color name="textTitleColor">#000</color>

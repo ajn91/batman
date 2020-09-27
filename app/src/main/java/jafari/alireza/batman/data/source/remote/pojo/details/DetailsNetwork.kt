@@ -2,8 +2,8 @@ package jafari.alireza.batman.data.source.remote.pojo.details
 
 
 import com.google.gson.annotations.SerializedName
-import jafari.alireza.batman.data.domain.derails.DetailsModel
-import jafari.alireza.batman.data.source.local.details.DetailsEntity
+import jafari.alireza.batman.data.domain.details.DetailsModel
+import jafari.alireza.batman.data.source.local.details.entity.DetailsEntity
 
 data class DetailsNetwork(
     @SerializedName("Title")
@@ -121,4 +121,6 @@ fun DetailsNetwork.asDatabaseEntity(): DetailsEntity {
         website = this.website
 
     )
+
 }
+

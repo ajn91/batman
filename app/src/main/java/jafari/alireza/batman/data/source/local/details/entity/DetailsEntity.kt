@@ -1,9 +1,9 @@
-package jafari.alireza.batman.data.source.local.details
+package jafari.alireza.batman.data.source.local.details.entity
 
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import jafari.alireza.batman.data.domain.derails.DetailsModel
+import jafari.alireza.batman.data.domain.details.DetailsModel
 
 
 @Entity
@@ -66,3 +66,8 @@ fun DetailsEntity.asDomainModel(): DetailsModel {
     )
 }
 
+fun List<DetailsEntity>.asDomainModel(): List<DetailsModel> {
+    return map {
+        it.asDomainModel()
+    }
+}

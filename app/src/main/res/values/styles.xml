@@ -8,7 +8,7 @@
         <item name="colorOnPrimary">@color/textColorToolbarExpanded</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:colorBackground">@color/backgroundColor</item>
-        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColorPrimary">@android:color/black</item>
         <item name="android:itemBackground">@android:color/white</item>
 
     </style>
@@ -32,6 +32,10 @@
         <item name="android:textColor">@color/textSubTitleColor</item>
     </style>
 
+    <style name="TextStyle.SubTitle.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="MainToolbarStyle" parent="Widget.MaterialComponents.Toolbar.Primary">
         <item name="android:background">@color/backgroundColor</item>
         <item name="titleTextColor">@color/textTitleColor</item>
@@ -40,5 +44,16 @@
 
     <style name="TextStyle.Title.ToolbarExpanded">
         <item name="android:textColor">@color/textColorToolbarExpanded</item>
+    </style>
+
+    <style name="DetailsToolbarStyle" parent="Widget.MaterialComponents.Toolbar">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="titleTextColor">@color/textTitleColor</item>
+        <item name="colorControlNormal">@color/textTitleColor</item>
+    </style>
+
+    <style name="ToolbarColoredBackArrow" parent="AppTheme">
+        <item name="android:textColorSecondary">@color/textTitleColor</item>
+
     </style>
 </resources>

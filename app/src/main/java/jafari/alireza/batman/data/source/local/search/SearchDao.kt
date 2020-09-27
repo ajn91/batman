@@ -6,13 +6,13 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.android.devbyteviewer.database.SearchEntity
-import io.reactivex.Observable
+import io.reactivex.Flowable
 
 
 @Dao
 interface SearchDao {
     @Query("select * from SearchEntity")
-    fun getSearches(): Observable<List<SearchEntity>>
+    fun getSearches(): Flowable<List<SearchEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(searches: List<SearchEntity>)

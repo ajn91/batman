@@ -2,8 +2,8 @@ package jafari.alireza.batman.data.source.remote.pojo.details
 
 
 import com.google.gson.annotations.SerializedName
-import jafari.alireza.batman.data.domain.derails.RatingModel
-import jafari.alireza.batman.data.source.local.details.RatingEntity
+import jafari.alireza.batman.data.domain.details.RatingModel
+import jafari.alireza.batman.data.source.local.details.entity.RatingEntity
 
 data class RatingNetwork(
     @SerializedName("Source")
