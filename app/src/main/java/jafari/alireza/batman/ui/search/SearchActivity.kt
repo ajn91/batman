@@ -1,7 +1,6 @@
 package jafari.alireza.foursquare.ui.search
 
 import android.os.Bundle
-import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import jafari.alireza.batman.BR
@@ -75,7 +74,6 @@ class SearchActivity : BaseActivity<SearchActivityBinding, SearchViewModel>(),
     }
 
     private fun handleItems(items: Resource<List<SearchModel>>?) {
-        Log.d("LOG", "handleItems: ${items?.status}")
 
         when (items?.status) {
             ResourceStatus.SUCCESS -> {
@@ -123,7 +121,6 @@ class SearchActivity : BaseActivity<SearchActivityBinding, SearchViewModel>(),
 
 
     override fun onItemClick(position: Int) {
-
         mViewModel?.onItemClick(position)
     }
 

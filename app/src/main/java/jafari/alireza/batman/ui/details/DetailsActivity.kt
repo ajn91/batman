@@ -36,6 +36,19 @@ class DetailsActivity : BaseActivity<DetailsActivityBinding, DetailsViewModel>()
         mViewModel =
             ViewModelProvider(this, viewModelFactory).get(DetailsViewModel::class.java)
         mViewModel?.detailsResourceLive?.observe(this, ::handleDetails)
+        mViewModel?.messageStringLive?.observe(this, ::handleMessage)
+        mViewModel?.messageIdLive?.observe(this, ::handleMessageResource)
+    }
+
+    private fun handleMessageResource(id: Int?) {
+        id?.let {
+            viewDataBinding?.txtListStatus?.text = getString(it)
+        }
+
+    }
+
+    private fun handleMessage(message: String?) {
+        viewDataBinding?.txtListStatus?.text = message
 
     }
 
@@ -69,7 +82,6 @@ class DetailsActivity : BaseActivity<DetailsActivityBinding, DetailsViewModel>()
             ResourceStatus.ERROR -> {
 //                viewDataBinding?.appbar?.setExpanded(false)
                 viewDataBinding?.collapsingToolbar?.setTitleEnabled(false)
-
                 viewDataBinding?.txtListStatus?.text = details.message
             }
             ResourceStatus.LOADED -> {

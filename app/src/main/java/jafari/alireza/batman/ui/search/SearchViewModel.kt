@@ -2,7 +2,6 @@ package jafari.alireza.foursquare.ui.search
 
 
 import android.app.Application
-import android.os.Bundle
 import androidx.lifecycle.MutableLiveData
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -44,7 +43,6 @@ constructor(
     fun onItemClick(position: Int) {
         val id = itemsLive.value?.data?.get(position)?.imdbID
         if (id != null) {
-            val bundle = Bundle()
             directToPageLive.value = DirectionParamName.DetailsParams(id)
         }
 

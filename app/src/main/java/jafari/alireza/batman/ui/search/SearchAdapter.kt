@@ -32,8 +32,6 @@ class SearchAdapter @Inject constructor() :
         return ItemViewHolder(
             SearchItemLayoutBinding.inflate(inflater, parent, false)
         )
-
-
     }
 
 
@@ -51,13 +49,13 @@ class SearchAdapter @Inject constructor() :
 
     }
 
+    override fun getItemCount(): Int {
+        return mItems.size
+    }
 
     class ItemViewHolder(var binding: SearchItemLayoutBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    override fun getItemCount(): Int {
-        return mItems.size
-    }
 
     inner class DiffCallback(
         private val mOldList: List<SearchModel>,
