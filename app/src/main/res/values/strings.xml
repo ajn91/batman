@@ -7,7 +7,7 @@
     <string name="writer">Writer</string>
     <string name="loading">Loading…</string>
     <string name="empty_data">No data to show</string>
-    <string name="empty_data_no_network">No data to show please check your internet connectivity</string>
+    <string name="empty_data_no_network">No data to show please check your internet connection</string>
     <string name="plot">Plot</string>
     <string name="view_more">View More</string>
     <string name="rated">Rated</string>

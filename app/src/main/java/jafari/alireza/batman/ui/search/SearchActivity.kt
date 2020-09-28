@@ -59,9 +59,11 @@ class SearchActivity : BaseActivity<SearchActivityBinding, SearchViewModel>(),
     }
 
     private fun directToPage(directionParamName: DirectionParamName?) {
-
-        when (directionParamName) {
-            is DirectionParamName.DetailsParams -> goToDetailsPage(directionParamName.id)
+        directionParamName?.let {
+            when (directionParamName) {
+                is DirectionParamName.DetailsParams -> goToDetailsPage(directionParamName.id)
+            }
+            mViewModel?.directToPageLive?.value = null
         }
     }
 

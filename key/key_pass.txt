@@ -1,0 +1,3 @@
+store password:ajn1380@a
+key alias:aroundme
+key password:ajn1380@a@k

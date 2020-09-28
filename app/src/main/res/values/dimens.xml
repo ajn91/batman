@@ -8,6 +8,7 @@
     <dimen name="item_corners_radius">4dp</dimen>
     <dimen name="background_corners_radius">8dp</dimen>
     <dimen name="background_padding">4dp</dimen>
+    <dimen name="details_image_background_height">240dp</dimen>
 
 
 </resources>

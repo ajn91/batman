@@ -1,9 +1,12 @@
 package jafari.alireza.foursquare.ui.search
 
+import android.graphics.PorterDuff
 import android.os.Bundle
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
 import androidx.lifecycle.ViewModelProvider
 import com.devs.readmoreoption.ReadMoreOption
+import com.google.android.material.appbar.AppBarLayout
 import jafari.alireza.batman.BR
 import jafari.alireza.batman.R
 import jafari.alireza.batman.data.domain.details.DetailsModel
@@ -102,10 +105,30 @@ class DetailsActivity : BaseActivity<DetailsActivityBinding, DetailsViewModel>()
     private fun initialiseView() {
         setSupportActionBar(viewDataBinding?.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
+        setUpAppBar()
 
     }
 
+    private fun setUpAppBar() {
+        viewDataBinding?.appbar?.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
+            if (viewDataBinding?.collapsingToolbar!!.getHeight() + verticalOffset < 2 * ViewCompat.getMinimumHeight(
+                    viewDataBinding?.collapsingToolbar!!
+                )
+            ) {
+                viewDataBinding?.toolbar?.getNavigationIcon()
+                    ?.setColorFilter(
+                        resources.getColor(R.color.textTitleColor),
+                        PorterDuff.Mode.SRC_ATOP
+                    )
+            } else {
+                viewDataBinding?.toolbar?.getNavigationIcon()
+                    ?.setColorFilter(
+                        resources.getColor(R.color.textColorToolbarExpanded),
+                        PorterDuff.Mode.SRC_ATOP
+                    )
+            }
+        })
+    }
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
