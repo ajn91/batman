@@ -6,10 +6,10 @@ import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import jafari.alireza.batman.AppConstants
+import jafari.alireza.batman.data.source.remote.api.ApiService
 import jafari.alireza.batman.data.source.remote.interceptor.NetworkInterceptor
 import jafari.alireza.batman.data.source.remote.interceptor.RequestInterceptor
 import jafari.alireza.batman.utils.NetworkUtil
-import jafari.alireza.foursquare.data.remote.api.ApiService
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

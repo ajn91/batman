@@ -24,6 +24,5 @@ open class BaseViewModel : ViewModel() {
     }
 
 
-    class Success(val title: String, val description: String)
 
 }

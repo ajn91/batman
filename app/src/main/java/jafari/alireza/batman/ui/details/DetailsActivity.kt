@@ -1,7 +1,9 @@
 package jafari.alireza.foursquare.ui.search
 
 import android.os.Bundle
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import com.devs.readmoreoption.ReadMoreOption
 import jafari.alireza.batman.BR
 import jafari.alireza.batman.R
 import jafari.alireza.batman.data.domain.details.DetailsModel
@@ -51,6 +53,10 @@ class DetailsActivity : BaseActivity<DetailsActivityBinding, DetailsViewModel>()
                     )
                     supportActionBar?.title = it.title
                     viewDataBinding?.collapsingToolbar?.title = it.title
+                    getExpandableOption()
+                        .addReadMoreTo(viewDataBinding?.txtPlot, it.plot)
+                    viewDataBinding?.rtb?.rating = it.imdbRating.toFloat()
+
                 }
 
             }
@@ -71,6 +77,15 @@ class DetailsActivity : BaseActivity<DetailsActivityBinding, DetailsViewModel>()
 
 
     }
+
+    private fun getExpandableOption() =
+        ReadMoreOption.Builder(this)
+            .textLength(2, ReadMoreOption.TYPE_LINE)
+            .moreLabelColor(ContextCompat.getColor(this, R.color.colorAccent))
+            .lessLabelColor(ContextCompat.getColor(this, R.color.colorAccent))
+            .labelUnderLine(true)
+            .expandAnimation(true)
+            .build()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

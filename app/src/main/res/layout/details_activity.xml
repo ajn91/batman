@@ -133,22 +133,20 @@
                         style="@style/TextStyle.SubTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="16dp"
                         android:text="@string/genre"
                         app:layout_constraintHorizontal_chainStyle="spread_inside"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintStart_toStartOf="@+id/txt_imdb_rating"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_released" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/txt_genre"
                         style="@style/TextStyle.SubTitle.Bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
                         android:text="@{viewModel.detailsLive.genre}"
                         app:layout_constraintBaseline_toBaselineOf="@+id/txt_genre_label"
-                        app:layout_constraintStart_toEndOf="@+id/barrier_label"
+                        app:layout_constraintStart_toStartOf="@+id/rtb"
                         tools:text="@string/genre" />
 
                     <com.google.android.material.textview.MaterialTextView
@@ -220,13 +218,126 @@
                         app:layout_constraintTop_toBottomOf="@+id/txt_actors_label"
                         tools:text="@string/actors" />
 
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/txt_plot_label"
+                        style="@style/TextStyle.SubTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/plot"
+                        app:layout_constraintStart_toStartOf="@+id/txt_actors_label"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_actors" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/txt_plot"
+                        style="@style/TextStyle.SubTitle.Bold"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/txt_plot_label"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_plot_label" />
+
                     <androidx.constraintlayout.widget.Barrier
                         android:id="@+id/barrier_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:barrierDirection="right"
-                        app:constraint_referenced_ids="txt_genre_label,txt_director_label,txt_writer_label,txt_actors_label" />
+                        app:constraint_referenced_ids="txt_genre_label,txt_director_label,txt_writer_label,txt_actors_label,txt_plot_label,txt_imdb_rating" />
 
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/txt_rated_label"
+                        style="@style/TextStyle.SubTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/rated"
+                        app:layout_constraintEnd_toStartOf="@+id/txt_released_label"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="spread"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/rtb" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/txt_rated"
+                        style="@style/TextStyle.SubTitle.Bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@{viewModel.detailsLive.rated}"
+                        app:layout_constraintStart_toStartOf="@+id/txt_rated_label"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_rated_label"
+                        tools:text="@string/genre" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/txt_released_label"
+                        style="@style/TextStyle.SubTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/released"
+                        app:layout_constraintEnd_toStartOf="@+id/txt_runtime_label"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="spread_inside"
+                        app:layout_constraintStart_toEndOf="@+id/txt_rated_label"
+                        app:layout_constraintTop_toTopOf="@+id/txt_rated_label" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/txt_released"
+                        style="@style/TextStyle.SubTitle.Bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.detailsLive.released}"
+                        app:layout_constraintBaseline_toBaselineOf="@+id/txt_rated"
+                        app:layout_constraintStart_toStartOf="@+id/txt_released_label"
+                        tools:text="@string/genre" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/txt_runtime_label"
+                        style="@style/TextStyle.SubTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/runtime"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="spread_inside"
+                        app:layout_constraintStart_toEndOf="@+id/txt_released_label"
+                        app:layout_constraintTop_toTopOf="@+id/txt_rated_label" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/txt_runtime"
+                        style="@style/TextStyle.SubTitle.Bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.detailsLive.runtime}"
+                        app:layout_constraintBaseline_toBaselineOf="@+id/txt_released"
+                        app:layout_constraintStart_toStartOf="@+id/txt_runtime_label"
+                        tools:text="@string/genre" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/txt_imdb_rating"
+                        style="@style/TextStyle.SubTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="@string/imdb_rating"
+                        app:layout_constraintStart_toStartOf="parent"
+                        tools:layout_editor_absoluteY="13dp"
+                        tools:text="@string/genre" />
+
+                    <RatingBar
+                        android:id="@+id/rtb"
+                        style="@style/RatingBarStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:numStars="10"
+                        app:layout_constraintBottom_toBottomOf="@+id/txt_imdb_rating"
+                        app:layout_constraintStart_toStartOf="@+id/barrier_label"
+                        app:layout_constraintTop_toTopOf="@+id/txt_imdb_rating" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.core.widget.NestedScrollView>
 

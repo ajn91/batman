@@ -15,20 +15,6 @@ import javax.inject.Singleton
 )
 interface ApiComponent {
 
-//    @Component.Builder
-//    interface Builder {
-//        @BindsInstance
-//        fun application(application: Application): Builder
-//
-//
-//        @BindsInstance
-//        fun apiModule(apiModule: ApiModule): Builder
-//
-//        @BindsInstance
-//        fun dbModule(dbModule: DbModule): Builder
-//
-//        fun build(): ApiComponent
-//    }
 
     fun inject(appController: AppController)
 }

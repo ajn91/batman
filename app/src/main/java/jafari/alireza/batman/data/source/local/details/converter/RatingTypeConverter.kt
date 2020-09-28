@@ -1,4 +1,4 @@
-package com.parax.panda.data.local.converter
+package jafari.alireza.batman.data.source.local.details.converter
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson

@@ -1,7 +1,6 @@
 package jafari.alireza.batman.data.repository.search
 
 import android.content.Context
-import android.util.Log
 import com.example.android.devbyteviewer.database.asDomainModel
 import io.reactivex.Flowable
 import io.reactivex.schedulers.Schedulers
@@ -9,9 +8,9 @@ import jafari.alireza.batman.R
 import jafari.alireza.batman.data.domain.search.SearchModel
 import jafari.alireza.batman.data.source.local.search.SearchDao
 import jafari.alireza.batman.data.source.remote.Resource
+import jafari.alireza.batman.data.source.remote.api.ApiService
 import jafari.alireza.batman.data.source.remote.pojo.search.asDatabaseEntity
 import jafari.alireza.batman.utils.NetworkUtil
-import jafari.alireza.foursquare.data.remote.api.ApiService
 import javax.inject.Inject
 
 class SearchRepositoryImp @Inject constructor(
@@ -47,24 +46,14 @@ class SearchRepositoryImp @Inject constructor(
         apiService.getSearch().subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io())
             .subscribe({ response ->
-                Log.d("LOG", "getSearchFromApi: ")
-
                 searchDao.insertAll(response.asDatabaseEntity())
 
             }, { error ->
-//        messageStringLive.value = error.message
             })
-//        apiService.getSearch()
-//            .doOnNext {
-//                Log.d("LOG", "getSearchFromApi: ")
-//                searchDao.insertAll(it.asDatabaseModel())
-//
-//            }.map { it.asDomainModel() }
 
 
     fun getSearchFromDb(): Flowable<List<SearchModel>> =
         searchDao.getSearches().map {
-            Log.d("LOG", "getSearchFromDb: ")
             it.asDomainModel()
         }
 

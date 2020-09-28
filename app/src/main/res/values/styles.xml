@@ -54,6 +54,9 @@
 
     <style name="ToolbarColoredBackArrow" parent="AppTheme">
         <item name="android:textColorSecondary">@color/textTitleColor</item>
+    </style>
 
+    <style name="RatingBarStyle" parent="android:style/Widget.Material.RatingBar.Small">
+        <item name="colorControlActivated">@color/colorAccent</item>
     </style>
 </resources>

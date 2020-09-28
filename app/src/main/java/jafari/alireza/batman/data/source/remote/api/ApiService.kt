@@ -1,4 +1,4 @@
-package jafari.alireza.foursquare.data.remote.api
+package jafari.alireza.batman.data.source.remote.api
 
 import io.reactivex.Observable
 import jafari.alireza.batman.data.source.remote.pojo.details.DetailsNetwork

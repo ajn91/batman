@@ -14,6 +14,8 @@
     <color name="dividerColor">#B1A8A8</color>
     <color name="dialogBackgroundColor">#aadedede</color>
     <color name="whiteTransparent">#bfff</color>
+    <color name="ic_launcher_background">#5593DC</color>
+
 
 </resources>
 

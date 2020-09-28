@@ -4,7 +4,7 @@ ext {
             compileSdkVersion: 29,
             buildToolsVersion: '29.0.3',
             targetSdkVersion : 29,
-            minSdkVersion    : 17
+            minSdkVersion    : 21
     ]
 
     application = [
@@ -13,20 +13,21 @@ ext {
     ]
 
     library = [
-            kotlin          : '1.4.10',
-            appcompat       : '1.2.0',
-            material        : '1.2.1',
-            recyclerview    : '1.1.0',
-            room            : '2.2.5',
-            lifecycle       : '2.2.0',
-            constraintlayout: '2.0.1',
-            dagger          : '2.28.3',
-            retrofit        : '2.9.0',
-            okhttp          : '4.8.1',
-            glide           : '4.11.0',
-            rxjava          : '2.2.19',
-            rxrelay         : '2.1.1',
-            rxandroid       : '2.1.1'
+            kotlin            : '1.4.10',
+            appcompat         : '1.2.0',
+            material          : '1.2.1',
+            recyclerview      : '1.1.0',
+            room              : '2.2.5',
+            lifecycle         : '2.2.0',
+            constraintlayout  : '2.0.1',
+            dagger            : '2.28.3',
+            retrofit          : '2.9.0',
+            okhttp            : '4.8.1',
+            glide             : '4.11.0',
+            rxjava            : '2.2.19',
+            rxrelay           : '2.1.1',
+            rxandroid         : '2.1.1',
+            expandableTextView: '1.0.2'
     ]
 
 }
