@@ -136,7 +136,7 @@
                         android:layout_marginTop="16dp"
                         android:text="@string/genre"
                         app:layout_constraintHorizontal_chainStyle="spread_inside"
-                        app:layout_constraintStart_toStartOf="@+id/txt_imdb_rating"
+                        app:layout_constraintStart_toStartOf="@+id/txt_imdb_rating_label"
                         app:layout_constraintTop_toBottomOf="@+id/txt_released" />
 
                     <com.google.android.material.textview.MaterialTextView
@@ -247,7 +247,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:barrierDirection="right"
-                        app:constraint_referenced_ids="txt_genre_label,txt_director_label,txt_writer_label,txt_actors_label,txt_plot_label,txt_imdb_rating" />
+                        app:constraint_referenced_ids="txt_genre_label,txt_director_label,txt_writer_label,txt_actors_label,txt_plot_label,txt_imdb_rating_label" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/txt_rated_label"
@@ -318,7 +318,7 @@
                         tools:text="@string/genre" />
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/txt_imdb_rating"
+                        android:id="@+id/txt_imdb_rating_label"
                         style="@style/TextStyle.SubTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -336,9 +336,20 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:numStars="10"
-                        app:layout_constraintBottom_toBottomOf="@+id/txt_imdb_rating"
+                        app:layout_constraintBottom_toBottomOf="@+id/txt_imdb_rating_label"
                         app:layout_constraintStart_toStartOf="@+id/barrier_label"
-                        app:layout_constraintTop_toTopOf="@+id/txt_imdb_rating" />
+                        app:layout_constraintTop_toTopOf="@+id/txt_imdb_rating_label" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/txt_imdb_rating"
+                        style="@style/TextStyle.SubTitle.Bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="@{viewModel.detailsLive.imdbRating}"
+                        app:layout_constraintBaseline_toBaselineOf="@+id/txt_imdb_rating_label"
+                        app:layout_constraintStart_toEndOf="@+id/rtb"
+                        tools:text="@string/genre" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.core.widget.NestedScrollView>
 
