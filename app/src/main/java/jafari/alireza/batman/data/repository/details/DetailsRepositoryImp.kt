@@ -7,7 +7,7 @@ import jafari.alireza.batman.R
 import jafari.alireza.batman.data.domain.details.DetailsModel
 import jafari.alireza.batman.data.source.local.details.DetailsDao
 import jafari.alireza.batman.data.source.local.details.entity.asDomainModel
-import jafari.alireza.batman.data.source.remote.Resource
+import jafari.alireza.batman.data.source.remote.ResponseStatus
 import jafari.alireza.batman.data.source.remote.api.ApiService
 import jafari.alireza.batman.data.source.remote.pojo.details.asDatabaseEntity
 import jafari.alireza.batman.utils.NetworkUtil
@@ -20,7 +20,7 @@ class DetailsRepositoryImp @Inject constructor(
     val context: Context
 ) : DetailsRepository {
 
-    override fun getDetails(id: String): Flowable<Resource<out DetailsModel>> {
+    override fun getDetails(id: String): Flowable<Pair<ResponseStatus, DetailsModel?>> {
         val hasConnection = networkUtil.isConnectedToInternet()
         if (hasConnection)
             getDetailsFromApi(id)
@@ -28,14 +28,32 @@ class DetailsRepositoryImp @Inject constructor(
         return getDetailsFromDb(id).map {
             if (it.size == 0) {
                 if (hasConnection)
-                    Resource.error(context.getString(R.string.empty_data), null)
+                    Pair(
+                        ResponseStatus.ERROR(context.getString(R.string.empty_data)),
+                        null
+                    )
+//                    Resource.error(context.getString(R.string.empty_data), null)
                 else
-                    Resource.error(context.getString(R.string.empty_data_no_network), null)
+                    Pair(
+                        ResponseStatus.ERROR(context.getString(R.string.empty_data_no_network)),
+                        null
+                    )
+
+//                        Resource.error(context.getString(R.string.empty_data_no_network), null)
             } else
-                Resource.success(it[0])
-        }.startWith(Resource.loading(null))
+                Pair(ResponseStatus.SUCCESS(), it[0])
+//                Resource.success(it[0])
+        }.startWith(
+            Pair(ResponseStatus.LOADING(), null)
+        )
             .onErrorReturn {
-                Resource.error(it.message ?: "error", null)
+                Pair(
+                    ResponseStatus.ERROR(it.message ?: "error"),
+                    null
+                )
+
+
+//                Resource.error(it.message ?: "error", null)
             }
 
 

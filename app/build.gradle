@@ -43,12 +43,12 @@ android {
           }
 
     }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 }
 
@@ -67,7 +67,9 @@ dependencies {
 
     /* Retrofit using  Okhttp, Okhttp logging interceptor, Gson  */
     implementation "com.squareup.retrofit2:retrofit:$library.retrofit"
-    implementation "com.squareup.retrofit2:converter-gson:$library.retrofit"
+//    implementation "com.squareup.retrofit2:converter-gson:$library.retrofit"
+    implementation "com.squareup.retrofit2:converter-moshi:$library.retrofit"
+
     implementation "com.squareup.retrofit2:adapter-rxjava2:$library.retrofit"
     /* Okhttp */
     implementation "com.squareup.okhttp3:logging-interceptor:$library.okhttp"
@@ -98,8 +100,9 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:$library.glide"
     kapt "com.github.bumptech.glide:compiler:$library.glide"
     /* Expandable TextView */
-    implementation "com.github.devendroid:ReadMoreOption:$library.expandableTextView"
+    implementation "com.github.devendroid:ReadMoreOption:$library.expandable_textview"
 
+    implementation "androidx.activity:activity-ktx:$library.activity_version"
 
 
 

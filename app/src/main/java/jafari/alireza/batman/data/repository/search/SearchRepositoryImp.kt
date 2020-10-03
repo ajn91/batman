@@ -7,7 +7,7 @@ import io.reactivex.schedulers.Schedulers
 import jafari.alireza.batman.R
 import jafari.alireza.batman.data.domain.search.SearchModel
 import jafari.alireza.batman.data.source.local.search.SearchDao
-import jafari.alireza.batman.data.source.remote.Resource
+import jafari.alireza.batman.data.source.remote.ResponseStatus
 import jafari.alireza.batman.data.source.remote.api.ApiService
 import jafari.alireza.batman.data.source.remote.pojo.search.asDatabaseEntity
 import jafari.alireza.batman.utils.NetworkUtil
@@ -20,7 +20,7 @@ class SearchRepositoryImp @Inject constructor(
     val context: Context
 ) : SearchRepository {
 
-    override fun getSearch(): Flowable<Resource<List<SearchModel>>> {
+    override fun getSearch(): Flowable<Pair<ResponseStatus, List<SearchModel>?>> {
 
         val hasConnection = networkUtil.isConnectedToInternet()
         if (hasConnection)
@@ -29,14 +29,17 @@ class SearchRepositoryImp @Inject constructor(
         return getSearchFromDb().map {
             if (it.size == 0) {
                 if (hasConnection)
-                    Resource.error(context.getString(R.string.empty_data), it)
+                    Pair(ResponseStatus.ERROR(context.getString(R.string.empty_data)), null)
                 else
-                    Resource.error(context.getString(R.string.empty_data_no_network), it)
+                    Pair(
+                        ResponseStatus.ERROR(context.getString(R.string.empty_data_no_network)),
+                        null
+                    )
             } else
-                Resource.success(it)
-        }.startWith(Resource.loading(null))
+                Pair(ResponseStatus.SUCCESS(), it)
+        }.startWith(Pair(ResponseStatus.LOADING(), null))
             .onErrorReturn {
-                Resource.error(it.message ?: "error", null)
+                Pair(ResponseStatus.ERROR(it.message ?: "error"), null)
             }
 
 

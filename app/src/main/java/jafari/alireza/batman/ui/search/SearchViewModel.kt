@@ -1,24 +1,30 @@
-package jafari.alireza.foursquare.ui.search
+package jafari.alireza.batman.ui.search
 
 
-import android.app.Application
+import android.content.Context
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import jafari.alireza.batman.data.domain.search.SearchModel
 import jafari.alireza.batman.data.repository.search.SearchRepository
-import jafari.alireza.batman.data.source.remote.Resource
+import jafari.alireza.batman.data.source.remote.ResponseStatus
 import jafari.alireza.batman.ui.base.BaseViewModel
 import jafari.alireza.batman.utils.DirectionParamName
 import javax.inject.Inject
 
-class SearchViewModel @Inject
+class SearchViewModel
+@Inject
 constructor(
     val searchRepository: SearchRepository,
-    val application: Application,
+    val context: Context,
 ) : BaseViewModel() {
-    val itemsLive = MutableLiveData<Resource<List<SearchModel>>>()
-    val directToPageLive = MutableLiveData<DirectionParamName>()
+    val _itemsLive = MutableLiveData<Pair<ResponseStatus, List<SearchModel>?>>()
+    val itemsLive: LiveData<Pair<ResponseStatus, List<SearchModel>?>>
+        get() = _itemsLive
+    val _directToPageLive = MutableLiveData<DirectionParamName>()
+    val directToPageLive: LiveData<DirectionParamName>
+        get() = _directToPageLive
 
 
     init {
@@ -32,19 +38,25 @@ constructor(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ response ->
-                    itemsLive.postValue(response)
+                    _itemsLive.postValue(response)
                 }, { error ->
 
-                    messageStringLive.value = error.message
+                    _messageStringLive.value = error.message
                 })
         )
     }
 
     fun onItemClick(position: Int) {
-        val id = itemsLive.value?.data?.get(position)?.imdbID
+        val id = _itemsLive.value?.second?.get(position)?.imdbID
         if (id != null) {
-            directToPageLive.value = DirectionParamName.DetailsParams(id)
+            _directToPageLive.value = DirectionParamName.DetailsParams(id)
         }
+
+    }
+
+    fun onPageChanged() {
+        _directToPageLive.value = null
+
 
     }
 

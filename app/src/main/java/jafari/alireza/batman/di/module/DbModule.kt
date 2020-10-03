@@ -1,40 +1,43 @@
 package jafari.alireza.batman.di.module
 
-import android.app.Application
+import android.content.Context
 import androidx.room.Room
 import com.example.android.devbyteviewer.database.AppDatabase
 import dagger.Module
 import dagger.Provides
 import jafari.alireza.batman.data.source.local.details.DetailsDao
 import jafari.alireza.batman.data.source.local.search.SearchDao
-import javax.inject.Singleton
+import jafari.alireza.batman.di.scope.ApplicationScope
+import javax.inject.Named
 
 @Module
 class DbModule {
 
     @Provides
-    @Singleton
-    internal fun provideDatabase(application: Application): AppDatabase {
+    @ApplicationScope
+    internal fun provideDatabase(context: Context, @Named("dbName") dbName: String): AppDatabase {
 
         return Room.databaseBuilder(
-            application, AppDatabase::class.java, provideDatabaseName()
+            context, AppDatabase::class.java, dbName
         ).build()
     }
 
     @Provides
-    @Singleton
+    @ApplicationScope
     internal fun provideSearchDao(appDatabase: AppDatabase): SearchDao {
         return appDatabase.searchDao
     }
 
     @Provides
-    @Singleton
+    @ApplicationScope
     internal fun provideDetailsDao(appDatabase: AppDatabase): DetailsDao {
         return appDatabase.detailsDao
     }
 
-    internal fun provideDatabaseName(): String {
-        return "batman.db"
-    }
+    @Provides
+    @ApplicationScope
+    @Named("dbName")
+    fun provideDatabaseName() = "batman.db"
+
 
 }

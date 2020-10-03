@@ -1,60 +1,60 @@
 package jafari.alireza.batman.data.source.remote.pojo.details
 
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
 import jafari.alireza.batman.data.domain.details.DetailsModel
 import jafari.alireza.batman.data.source.local.details.entity.DetailsEntity
 
 data class DetailsNetwork(
-    @SerializedName("Title")
+    @field:Json(name = "Title")
     val title: String,
-    @SerializedName("Year")
+    @field:Json(name = "Year")
     val year: String,
-    @SerializedName("Rated")
+    @field:Json(name = "Rated")
     val rated: String,
-    @SerializedName("Released")
+    @field:Json(name = "Released")
     val released: String,
-    @SerializedName("Runtime")
+    @field:Json(name = "Runtime")
     val runtime: String,
-    @SerializedName("Genre")
+    @field:Json(name = "Genre")
     val genre: String,
-    @SerializedName("Director")
+    @field:Json(name = "Director")
     val director: String,
-    @SerializedName("Writer")
+    @field:Json(name = "Writer")
     val writer: String,
-    @SerializedName("Actors")
+    @field:Json(name = "Actors")
     val actors: String,
-    @SerializedName("Plot")
+    @field:Json(name = "Plot")
     val plot: String,
-    @SerializedName("Language")
+    @field:Json(name = "Language")
     val language: String,
-    @SerializedName("Country")
+    @field:Json(name = "Country")
     val country: String,
-    @SerializedName("Awards")
+    @field:Json(name = "Awards")
     val awards: String,
-    @SerializedName("Poster")
+    @field:Json(name = "Poster")
     val poster: String,
-    @SerializedName("Ratings")
+    @field:Json(name = "Ratings")
     val rating: List<RatingNetwork>,
-    @SerializedName("Metascore")
+    @field:Json(name = "Metascore")
     val metascore: String,
-    @SerializedName("imdbRating")
+    @field:Json(name = "imdbRating")
     val imdbRating: String,
-    @SerializedName("imdbVotes")
+    @field:Json(name = "imdbVotes")
     val imdbVotes: String,
-    @SerializedName("imdbID")
+    @field:Json(name = "imdbID")
     val imdbID: String,
-    @SerializedName("Type")
+    @field:Json(name = "Type")
     val type: String,
-    @SerializedName("DVD")
+    @field:Json(name = "DVD")
     val dVD: String,
-    @SerializedName("BoxOffice")
+    @field:Json(name = "BoxOffice")
     val boxOffice: String,
-    @SerializedName("Production")
+    @field:Json(name = "Production")
     val production: String,
-    @SerializedName("Website")
+    @field:Json(name = "Website")
     val website: String,
-    @SerializedName("Response")
+    @field:Json(name = "Response")
     val response: String
 )
 

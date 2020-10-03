@@ -1,4 +1,4 @@
-package jafari.alireza.foursquare.ui.search
+package jafari.alireza.batman.ui.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

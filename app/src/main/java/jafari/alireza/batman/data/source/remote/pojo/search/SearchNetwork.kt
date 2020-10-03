@@ -1,14 +1,13 @@
 package jafari.alireza.batman.data.source.remote.pojo.search
 
-import com.google.gson.annotations.SerializedName
-
+import com.squareup.moshi.Json
 
 
 data class SearchNetwork(
 
-    @SerializedName("Title") val title: String,
-    @SerializedName("Year") val year: String,
-    @SerializedName("imdbID") val imdbID: String,
-    @SerializedName("Type") val type: String,
-    @SerializedName("Poster") val poster: String
+    @field:Json(name = "Title") val title: String,
+    @field:Json(name = "Year") val year: String,
+    @field:Json(name = "imdbID") val imdbID: String,
+    @field:Json(name = "Type") val type: String,
+    @field:Json(name = "Poster") val poster: String
 )

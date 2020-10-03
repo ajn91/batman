@@ -1,16 +1,17 @@
-package jafari.alireza.foursquare.ui.search
+package jafari.alireza.batman.ui.search
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import jafari.alireza.batman.BR
 import jafari.alireza.batman.R
 import jafari.alireza.batman.data.domain.search.SearchModel
-import jafari.alireza.batman.data.source.remote.Resource
-import jafari.alireza.batman.data.source.remote.ResourceStatus
+import jafari.alireza.batman.data.source.remote.ResponseStatus
 import jafari.alireza.batman.databinding.SearchActivityBinding
 import jafari.alireza.batman.ui.appinterface.AdapterInterface
 import jafari.alireza.batman.ui.base.BaseActivity
+import jafari.alireza.batman.ui.details.DetailsActivity
 import jafari.alireza.batman.utils.DirectionParamName
 import jafari.alireza.batman.utils.NavigationUtil
 import javax.inject.Inject
@@ -36,8 +37,10 @@ class SearchActivity : BaseActivity<SearchActivityBinding, SearchViewModel>(),
     }
 
     override fun setViewModel() {
-        mViewModel =
-            ViewModelProvider(this, viewModelFactory).get(SearchViewModel::class.java)
+//        mViewModel =
+//            ViewModelProvider(this, viewModelFactory).get(SearchViewModel::class.java)
+        val viewModel: SearchViewModel by viewModels { viewModelFactory }
+        mViewModel = viewModel
         mViewModel?.itemsLive?.observe(this, ::handleItems)
         mViewModel?.directToPageLive?.observe(this, ::directToPage)
         mViewModel?.messageStringLive?.observe(this, ::handleMessage)
@@ -62,7 +65,7 @@ class SearchActivity : BaseActivity<SearchActivityBinding, SearchViewModel>(),
             when (directionParamName) {
                 is DirectionParamName.DetailsParams -> goToDetailsPage(directionParamName.id)
             }
-            mViewModel?.directToPageLive?.value = null
+            mViewModel?.onPageChanged()
         }
     }
 
@@ -73,23 +76,20 @@ class SearchActivity : BaseActivity<SearchActivityBinding, SearchViewModel>(),
 
     }
 
-    private fun handleItems(items: Resource<List<SearchModel>>?) {
-
-        when (items?.status) {
-            ResourceStatus.SUCCESS -> {
-                if (items.data != null)
-                    searchAdapter.setItems(items.data)
+    private fun handleItems(items: Pair<ResponseStatus, List<SearchModel>?>) {
+        val status = items.first
+        when (status) {
+            is ResponseStatus.SUCCESS -> {
+                if (items.second != null)
+                    searchAdapter.setItems(items.second!!)
             }
-            ResourceStatus.LOADING -> {
+            is ResponseStatus.LOADING -> {
                 viewDataBinding?.txtListStatus?.text = getString(R.string.loading)
             }
-            ResourceStatus.ERROR -> {
-                viewDataBinding?.txtListStatus?.text = items.message
+            is ResponseStatus.ERROR -> {
+                viewDataBinding?.txtListStatus?.text = status.message
             }
-            ResourceStatus.LOADED -> {
-            }
-            null -> {
-            }
+
         }
     }
 

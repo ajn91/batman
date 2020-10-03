@@ -1,7 +1,8 @@
-package jafari.alireza.foursquare.ui.search
+package jafari.alireza.batman.ui.details
 
 import android.graphics.PorterDuff
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.lifecycle.ViewModelProvider
@@ -10,8 +11,7 @@ import com.google.android.material.appbar.AppBarLayout
 import jafari.alireza.batman.BR
 import jafari.alireza.batman.R
 import jafari.alireza.batman.data.domain.details.DetailsModel
-import jafari.alireza.batman.data.source.remote.Resource
-import jafari.alireza.batman.data.source.remote.ResourceStatus
+import jafari.alireza.batman.data.source.remote.ResponseStatus
 import jafari.alireza.batman.databinding.DetailsActivityBinding
 import jafari.alireza.batman.ui.base.BaseActivity
 import jafari.alireza.batman.utils.ImageUtil
@@ -33,8 +33,10 @@ class DetailsActivity : BaseActivity<DetailsActivityBinding, DetailsViewModel>()
     }
 
     override fun setViewModel() {
-        mViewModel =
-            ViewModelProvider(this, viewModelFactory).get(DetailsViewModel::class.java)
+//        mViewModel =
+//            ViewModelProvider(this, viewModelFactory).get(DetailsViewModel::class.java)
+        val viewModel: DetailsViewModel by viewModels { viewModelFactory }
+        mViewModel = viewModel
         mViewModel?.detailsResourceLive?.observe(this, ::handleDetails)
         mViewModel?.messageStringLive?.observe(this, ::handleMessage)
         mViewModel?.messageIdLive?.observe(this, ::handleMessageResource)
@@ -52,42 +54,40 @@ class DetailsActivity : BaseActivity<DetailsActivityBinding, DetailsViewModel>()
 
     }
 
-    private fun handleDetails(details: Resource<DetailsModel>?) {
-        when (details?.status) {
-            ResourceStatus.SUCCESS -> {
+    private fun handleDetails(details: Pair<ResponseStatus, DetailsModel?>) {
+        val status = details.first
+        when (status) {
+            is ResponseStatus.SUCCESS -> {
                 viewDataBinding?.collapsingToolbar?.setTitleEnabled(true);
 
-                details.data?.let {
+                details.second.let {
 
                     ImageUtil.showImage(
                         this,
-                        it.poster, viewDataBinding?.imgBackground!!
+                        it?.poster, viewDataBinding?.imgBackground!!
                     )
                     ImageUtil.showImage(
                         this,
-                        it.poster, viewDataBinding?.imgPoster!!
+                        it?.poster, viewDataBinding?.imgPoster!!
                     )
-                    supportActionBar?.title = it.title
-                    viewDataBinding?.collapsingToolbar?.title = it.title
+                    supportActionBar?.title = it?.title
+                    viewDataBinding?.collapsingToolbar?.title = it?.title
                     getExpandableOption()
-                        .addReadMoreTo(viewDataBinding?.txtPlot, it.plot)
-                    viewDataBinding?.rtb?.rating = it.imdbRating.toFloat()
+                        .addReadMoreTo(viewDataBinding?.txtPlot, it?.plot)
+                    viewDataBinding?.rtb?.rating = it?.imdbRating?.toFloat() ?: 0f
 
                 }
 
             }
-            ResourceStatus.LOADING -> {
+            is ResponseStatus.LOADING -> {
                 viewDataBinding?.txtListStatus?.text = getString(R.string.loading)
             }
-            ResourceStatus.ERROR -> {
+            is ResponseStatus.ERROR -> {
 //                viewDataBinding?.appbar?.setExpanded(false)
                 viewDataBinding?.collapsingToolbar?.setTitleEnabled(false)
-                viewDataBinding?.txtListStatus?.text = details.message
+                viewDataBinding?.txtListStatus?.text = status.message
             }
-            ResourceStatus.LOADED -> {
-            }
-            null -> {
-            }
+
         }
 
 
@@ -118,7 +118,9 @@ class DetailsActivity : BaseActivity<DetailsActivityBinding, DetailsViewModel>()
         setSupportActionBar(viewDataBinding?.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         setUpAppBar()
-
+        viewDataBinding?.txtActors?.setOnClickListener {
+            mViewModel?.getDetails(mViewModel?.id!!)
+        }
     }
 
     private fun setUpAppBar() {

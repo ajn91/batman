@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="jafari.alireza.foursquare.ui.search.SearchViewModel" />
+            type="jafari.alireza.batman.ui.search.SearchViewModel" />
 
     </data>
 
@@ -36,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:visibility="@{viewModel.itemsLive.success ? View.GONE:View.VISIBLE}"
+            android:visibility="@{viewModel.itemsLive.second != null ? View.GONE:View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

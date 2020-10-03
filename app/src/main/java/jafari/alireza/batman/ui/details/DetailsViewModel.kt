@@ -1,7 +1,6 @@
-package jafari.alireza.foursquare.ui.search
+package jafari.alireza.batman.ui.details
 
 
-import android.app.Application
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,39 +9,41 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import jafari.alireza.batman.data.domain.details.DetailsModel
 import jafari.alireza.batman.data.repository.details.DetailsRepository
-import jafari.alireza.batman.data.source.remote.Resource
+import jafari.alireza.batman.data.source.remote.ResponseStatus
 import jafari.alireza.batman.ui.base.BaseViewModel
 import javax.inject.Inject
 
 class DetailsViewModel @Inject
 constructor(
     val detailsRepository: DetailsRepository,
-    val application: Application,
     val context: Context
 ) : BaseViewModel() {
     lateinit var id: String
-    val detailsResourceLive = MutableLiveData<Resource<DetailsModel>>()
-    val detailsLive: LiveData<DetailsModel> = Transformations.map(detailsResourceLive) {
-        it.data
-    }
+    val _detailsResourceLive = MutableLiveData<Pair<ResponseStatus, DetailsModel?>>()
+    val detailsResourceLive: LiveData<Pair<ResponseStatus, DetailsModel?>>
+        get() = _detailsResourceLive
+    val detailsLive: LiveData<DetailsModel>
+        get() = Transformations.map(_detailsResourceLive) {
+            it.second
+        }
 
 
     fun getDetails(id: String) {
-        if (!this::id.isInitialized) {
-            this.id = id
-            addToDisposable(
-                detailsRepository.getDetails(id)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({ response ->
-                        detailsResourceLive.postValue(response as Resource<DetailsModel>?)
+//        if (!this::id.isInitialized) {
+        this.id = id
+        addToDisposable(
+            detailsRepository.getDetails(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ response ->
+                    _detailsResourceLive.postValue(response)
 
-                    }, { error ->
-                        messageStringLive.value = error.message
-                    })
-            )
+                }, { error ->
+                    _messageStringLive.value = error.message
+                })
+        )
         }
-    }
+//    }
 
 
 }

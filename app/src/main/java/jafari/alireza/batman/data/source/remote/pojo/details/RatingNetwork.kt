@@ -1,14 +1,14 @@
 package jafari.alireza.batman.data.source.remote.pojo.details
 
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
 import jafari.alireza.batman.data.domain.details.RatingModel
 import jafari.alireza.batman.data.source.local.details.entity.RatingEntity
 
 data class RatingNetwork(
-    @SerializedName("Source")
+    @field:Json(name = "Source")
     val source: String,
-    @SerializedName("Value")
+    @field:Json(name = "Value")
     val value: String
 )
 
