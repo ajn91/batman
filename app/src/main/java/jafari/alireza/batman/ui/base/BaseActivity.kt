@@ -12,7 +12,7 @@ abstract class BaseActivity<T : ViewDataBinding, V : BaseViewModel> : AppCompatA
 
     var viewDataBinding: T? = null
         private set
-    var mViewModel: V? = null
+    abstract val mViewModel: V?
 
     /**
      * Override for set binding variable
@@ -27,7 +27,7 @@ abstract class BaseActivity<T : ViewDataBinding, V : BaseViewModel> : AppCompatA
     @LayoutRes
     abstract fun getLayoutId(): Int
 
-    abstract fun setViewModel()
+    abstract fun createViewModelObserver()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,11 +36,9 @@ abstract class BaseActivity<T : ViewDataBinding, V : BaseViewModel> : AppCompatA
     }
 
 
-
     private fun performDataBinding() {
         viewDataBinding = DataBindingUtil.setContentView(this, getLayoutId())
-        if (mViewModel == null)
-            setViewModel()
+        createViewModelObserver()
         viewDataBinding!!.setVariable(getBindingVariable().first, getBindingVariable().second)
         viewDataBinding!!.lifecycleOwner = this
         viewDataBinding!!.executePendingBindings()

@@ -18,8 +18,7 @@ import jafari.alireza.batman.utils.ImageUtil
 
 @AndroidEntryPoint
 class DetailsActivity : BaseActivity<DetailsActivityBinding, DetailsViewModel>() {
-
-
+    override val mViewModel: DetailsViewModel by viewModels()
 
 
     override fun getBindingVariable(): Pair<Int, Any?> {
@@ -30,14 +29,11 @@ class DetailsActivity : BaseActivity<DetailsActivityBinding, DetailsViewModel>()
         return R.layout.details_activity
     }
 
-    override fun setViewModel() {
-//        mViewModel =
-//            ViewModelProvider(this, viewModelFactory).get(DetailsViewModel::class.java)
-        val viewModel: DetailsViewModel by viewModels()
-        mViewModel = viewModel
-        mViewModel?.detailsResourceLive?.observe(this, ::handleDetails)
-        mViewModel?.messageStringLive?.observe(this, ::handleMessage)
-        mViewModel?.messageIdLive?.observe(this, ::handleMessageResource)
+    override fun createViewModelObserver() {
+
+        mViewModel.detailsResourceLive.observe(this, ::handleDetails)
+        mViewModel.messageStringLive.observe(this, ::handleMessage)
+        mViewModel.messageIdLive.observe(this, ::handleMessageResource)
     }
 
     private fun handleMessageResource(id: Int?) {
@@ -103,11 +99,7 @@ class DetailsActivity : BaseActivity<DetailsActivityBinding, DetailsViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val extra = intent.extras
-        if (extra != null && extra.containsKey(EXTRA_ID_NAME)) {
-            val id = extra.getString(EXTRA_ID_NAME)
-            mViewModel?.getDetails(id!!)
-        }
+
         initialiseView()
 
     }
@@ -117,7 +109,7 @@ class DetailsActivity : BaseActivity<DetailsActivityBinding, DetailsViewModel>()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         setUpAppBar()
         viewDataBinding?.txtActors?.setOnClickListener {
-            mViewModel?.getDetails(mViewModel?.id!!)
+            mViewModel.getDetails()
         }
     }
 
@@ -147,7 +139,5 @@ class DetailsActivity : BaseActivity<DetailsActivityBinding, DetailsViewModel>()
         return true
     }
 
-    companion object {
-        const val EXTRA_ID_NAME = "id"
-    }
+
 }

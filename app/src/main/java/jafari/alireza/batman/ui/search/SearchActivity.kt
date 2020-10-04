@@ -12,6 +12,7 @@ import jafari.alireza.batman.databinding.SearchActivityBinding
 import jafari.alireza.batman.ui.appinterface.AdapterInterface
 import jafari.alireza.batman.ui.base.BaseActivity
 import jafari.alireza.batman.ui.details.DetailsActivity
+import jafari.alireza.batman.utils.DetailsParams
 import jafari.alireza.batman.utils.DirectionParamName
 import jafari.alireza.batman.utils.NavigationUtil
 import javax.inject.Inject
@@ -19,6 +20,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class SearchActivity : BaseActivity<SearchActivityBinding, SearchViewModel>(),
     AdapterInterface.OnItemClickListener {
+    override val mViewModel: SearchViewModel by viewModels()
 
 
 
@@ -34,15 +36,15 @@ class SearchActivity : BaseActivity<SearchActivityBinding, SearchViewModel>(),
         return R.layout.search_activity
     }
 
-    override fun setViewModel() {
+    override fun createViewModelObserver() {
+
 //        mViewModel =
 //            ViewModelProvider(this, viewModelFactory).get(SearchViewModel::class.java)
-        val viewModel: SearchViewModel by viewModels()
-        mViewModel = viewModel
-        mViewModel?.itemsLive?.observe(this, ::handleItems)
-        mViewModel?.directToPageLive?.observe(this, ::directToPage)
-        mViewModel?.messageStringLive?.observe(this, ::handleMessage)
-        mViewModel?.messageIdLive?.observe(this, ::handleMessageResource)
+
+        mViewModel.itemsLive.observe(this, ::handleItems)
+        mViewModel.directToPageLive.observe(this, ::directToPage)
+        mViewModel.messageStringLive.observe(this, ::handleMessage)
+        mViewModel.messageIdLive.observe(this, ::handleMessageResource)
 
     }
 
@@ -63,13 +65,13 @@ class SearchActivity : BaseActivity<SearchActivityBinding, SearchViewModel>(),
             when (directionParamName) {
                 is DirectionParamName.DetailsParams -> goToDetailsPage(directionParamName.id)
             }
-            mViewModel?.onPageChanged()
+            mViewModel.onPageChanged()
         }
     }
 
     private fun goToDetailsPage(id: String) {
         val bundle = Bundle()
-        bundle.putString(DetailsActivity.EXTRA_ID_NAME, id)
+        bundle.putString(DetailsParams.ID_Name, id)
         NavigationUtil.startActivity(this, DetailsActivity::class.java, bundle)
 
     }
@@ -119,7 +121,7 @@ class SearchActivity : BaseActivity<SearchActivityBinding, SearchViewModel>(),
 
 
     override fun onItemClick(position: Int) {
-        mViewModel?.onItemClick(position)
+        mViewModel.onItemClick(position)
     }
 
 
