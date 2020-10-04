@@ -4,13 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import dagger.hilt.android.scopes.ActivityScoped
 import jafari.alireza.batman.data.domain.search.SearchModel
 import jafari.alireza.batman.databinding.SearchItemLayoutBinding
 import jafari.alireza.batman.ui.appinterface.AdapterInterface
 import jafari.alireza.batman.utils.ImageUtil
 import javax.inject.Inject
 
-
+@ActivityScoped
 class SearchAdapter @Inject constructor() :
     RecyclerView.Adapter<SearchAdapter.ItemViewHolder>() {
     var onItemClickListener: AdapterInterface.OnItemClickListener? = null

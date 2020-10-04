@@ -3,10 +3,14 @@ package jafari.alireza.batman.di.module
 import android.content.Context
 import dagger.Module
 import dagger.Provides
-import jafari.alireza.batman.di.scope.ApplicationScope
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import jafari.alireza.batman.utils.NetworkUtil
+import javax.inject.Singleton
 
 @Module
+@InstallIn(ApplicationComponent::class)
 class AppModule {
 //    @get:Provides
 //    @Provides
@@ -22,7 +26,7 @@ class AppModule {
 //    }
 
     @Provides
-    @ApplicationScope
-    fun provideUtils(context: Context): NetworkUtil = NetworkUtil(context)
+    @Singleton
+    fun provideUtils(@ApplicationContext context: Context): NetworkUtil = NetworkUtil(context)
 }
 

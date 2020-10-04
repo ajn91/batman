@@ -5,9 +5,9 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
-import androidx.lifecycle.ViewModelProvider
 import com.devs.readmoreoption.ReadMoreOption
 import com.google.android.material.appbar.AppBarLayout
+import dagger.hilt.android.AndroidEntryPoint
 import jafari.alireza.batman.BR
 import jafari.alireza.batman.R
 import jafari.alireza.batman.data.domain.details.DetailsModel
@@ -15,14 +15,12 @@ import jafari.alireza.batman.data.source.remote.ResponseStatus
 import jafari.alireza.batman.databinding.DetailsActivityBinding
 import jafari.alireza.batman.ui.base.BaseActivity
 import jafari.alireza.batman.utils.ImageUtil
-import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class DetailsActivity : BaseActivity<DetailsActivityBinding, DetailsViewModel>() {
 
 
-    @Inject
-    internal lateinit var viewModelFactory: ViewModelProvider.Factory
+
 
     override fun getBindingVariable(): Pair<Int, Any?> {
         return Pair(BR.viewModel, mViewModel)
@@ -35,7 +33,7 @@ class DetailsActivity : BaseActivity<DetailsActivityBinding, DetailsViewModel>()
     override fun setViewModel() {
 //        mViewModel =
 //            ViewModelProvider(this, viewModelFactory).get(DetailsViewModel::class.java)
-        val viewModel: DetailsViewModel by viewModels { viewModelFactory }
+        val viewModel: DetailsViewModel by viewModels()
         mViewModel = viewModel
         mViewModel?.detailsResourceLive?.observe(this, ::handleDetails)
         mViewModel?.messageStringLive?.observe(this, ::handleMessage)

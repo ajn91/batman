@@ -3,10 +3,12 @@ package jafari.alireza.batman.di.module
 import android.content.Context
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import jafari.alireza.batman.data.source.remote.api.ApiService
 import jafari.alireza.batman.data.source.remote.interceptor.NetworkInterceptor
 import jafari.alireza.batman.data.source.remote.interceptor.RequestInterceptor
-import jafari.alireza.batman.di.scope.ApplicationScope
 import jafari.alireza.batman.utils.NetworkUtil
 import okhttp3.Cache
 import okhttp3.OkHttpClient
@@ -17,9 +19,10 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import java.io.File
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
-
+import javax.inject.Singleton
 
 @Module
+@InstallIn(ApplicationComponent::class)
 class NetworkModule {
 
 //    @Provides
@@ -33,8 +36,8 @@ class NetworkModule {
 
 
     @Provides
-    @ApplicationScope
-    fun provideCache(context: Context): Cache {
+    @Singleton
+    fun provideCache(@ApplicationContext context: Context): Cache {
         val cacheSize = (10 * 1024 * 1024).toLong() // 10 MB
         val httpCacheDirectory = File(context.cacheDir, "http-cache")
         return Cache(httpCacheDirectory, cacheSize)
@@ -42,23 +45,23 @@ class NetworkModule {
 
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideNetworkInterceptor(networkUtil: NetworkUtil) =
         NetworkInterceptor(networkUtil)
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideHttpLoggingInterceptor() =
         HttpLoggingInterceptor()
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideRequestInterceptor() =
         RequestInterceptor()
 
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideOkhttpClient(
         cache: Cache,
         networkInterceptor: NetworkInterceptor,
@@ -77,7 +80,7 @@ class NetworkModule {
     }
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideRetrofit(
         okHttpClient: OkHttpClient,
         @Named("serverUrl") serverUrl: String
@@ -93,7 +96,7 @@ class NetworkModule {
 
 
     @Provides
-    @ApplicationScope
+    @Singleton
     fun provideApiService(retrofit: Retrofit) =
         retrofit.create(ApiService::class.java)
 

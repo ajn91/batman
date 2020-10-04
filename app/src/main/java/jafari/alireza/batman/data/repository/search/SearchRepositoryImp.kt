@@ -2,6 +2,7 @@ package jafari.alireza.batman.data.repository.search
 
 import android.content.Context
 import com.example.android.devbyteviewer.database.asDomainModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.Flowable
 import io.reactivex.schedulers.Schedulers
 import jafari.alireza.batman.R
@@ -17,7 +18,7 @@ class SearchRepositoryImp @Inject constructor(
     val apiService: ApiService,
     val searchDao: SearchDao,
     val networkUtil: NetworkUtil,
-    val context: Context
+    @ApplicationContext val context: Context
 ) : SearchRepository {
 
     override fun getSearch(): Flowable<Pair<ResponseStatus, List<SearchModel>?>> {

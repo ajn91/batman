@@ -1,6 +1,7 @@
 package jafari.alireza.batman.data.repository.details
 
 import android.content.Context
+import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.Flowable
 import io.reactivex.schedulers.Schedulers
 import jafari.alireza.batman.R
@@ -17,7 +18,7 @@ class DetailsRepositoryImp @Inject constructor(
     val apiService: ApiService,
     val detailsDao: DetailsDao,
     val networkUtil: NetworkUtil,
-    val context: Context
+    @ApplicationContext val context: Context
 ) : DetailsRepository {
 
     override fun getDetails(id: String): Flowable<Pair<ResponseStatus, DetailsModel?>> {

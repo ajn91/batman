@@ -5,17 +5,24 @@ import androidx.room.Room
 import com.example.android.devbyteviewer.database.AppDatabase
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import jafari.alireza.batman.data.source.local.details.DetailsDao
 import jafari.alireza.batman.data.source.local.search.SearchDao
-import jafari.alireza.batman.di.scope.ApplicationScope
 import javax.inject.Named
+import javax.inject.Singleton
 
 @Module
+@InstallIn(ApplicationComponent::class)
 class DbModule {
 
     @Provides
-    @ApplicationScope
-    internal fun provideDatabase(context: Context, @Named("dbName") dbName: String): AppDatabase {
+    @Singleton
+    internal fun provideDatabase(
+        @ApplicationContext context: Context,
+        @Named("dbName") dbName: String
+    ): AppDatabase {
 
         return Room.databaseBuilder(
             context, AppDatabase::class.java, dbName
@@ -23,19 +30,19 @@ class DbModule {
     }
 
     @Provides
-    @ApplicationScope
+    @Singleton
     internal fun provideSearchDao(appDatabase: AppDatabase): SearchDao {
         return appDatabase.searchDao
     }
 
     @Provides
-    @ApplicationScope
+    @Singleton
     internal fun provideDetailsDao(appDatabase: AppDatabase): DetailsDao {
         return appDatabase.detailsDao
     }
 
     @Provides
-    @ApplicationScope
+    @Singleton
     @Named("dbName")
     fun provideDatabaseName() = "batman.db"
 

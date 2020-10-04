@@ -2,8 +2,8 @@ package jafari.alireza.batman.ui.search
 
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import jafari.alireza.batman.BR
 import jafari.alireza.batman.R
 import jafari.alireza.batman.data.domain.search.SearchModel
@@ -16,13 +16,11 @@ import jafari.alireza.batman.utils.DirectionParamName
 import jafari.alireza.batman.utils.NavigationUtil
 import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class SearchActivity : BaseActivity<SearchActivityBinding, SearchViewModel>(),
     AdapterInterface.OnItemClickListener {
 
 
-    @Inject
-    internal lateinit var viewModelFactory: ViewModelProvider.Factory
 
     @Inject
     lateinit var searchAdapter: SearchAdapter
@@ -39,7 +37,7 @@ class SearchActivity : BaseActivity<SearchActivityBinding, SearchViewModel>(),
     override fun setViewModel() {
 //        mViewModel =
 //            ViewModelProvider(this, viewModelFactory).get(SearchViewModel::class.java)
-        val viewModel: SearchViewModel by viewModels { viewModelFactory }
+        val viewModel: SearchViewModel by viewModels()
         mViewModel = viewModel
         mViewModel?.itemsLive?.observe(this, ::handleItems)
         mViewModel?.directToPageLive?.observe(this, ::directToPage)
