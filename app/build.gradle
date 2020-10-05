@@ -105,7 +105,10 @@ dependencies {
     /* Expandable TextView */
     implementation "com.github.devendroid:ReadMoreOption:$library.expandable_textview"
 
+    /* Activity ktx */
     implementation "androidx.activity:activity-ktx:$library.activity_version"
+    /* Reactive Stream */
+    implementation "androidx.lifecycle:lifecycle-reactivestreams-ktx:$library.reactive_stream"
 
 
 }

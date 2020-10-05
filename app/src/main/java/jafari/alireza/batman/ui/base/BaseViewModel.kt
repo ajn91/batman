@@ -25,7 +25,6 @@ open class BaseViewModel : ViewModel() {
     open fun onStop() {
         if (!compositeDisposable.isDisposed)
             compositeDisposable.dispose()
-        compositeDisposable.clear()
     }
 
 
