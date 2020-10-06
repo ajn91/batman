@@ -14,7 +14,7 @@ import jafari.alireza.batman.data.domain.search.SearchModel
 /**
  * DatabaseSearch  represents a search entity in the database.
  */
-@Entity
+@Entity(tableName = "searches")
 data class SearchEntity constructor(
     @PrimaryKey
     val imdbID: String,

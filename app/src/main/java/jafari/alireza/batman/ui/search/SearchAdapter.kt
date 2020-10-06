@@ -7,14 +7,13 @@ import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.scopes.ActivityScoped
 import jafari.alireza.batman.data.domain.search.SearchModel
 import jafari.alireza.batman.databinding.SearchItemLayoutBinding
-import jafari.alireza.batman.ui.appinterface.AdapterInterface
-import jafari.alireza.batman.utils.ImageUtil
+import jafari.alireza.batman.ui.appinterface.OnItemClickListener
 import javax.inject.Inject
 
 @ActivityScoped
 class SearchAdapter @Inject constructor() :
     RecyclerView.Adapter<SearchAdapter.ItemViewHolder>() {
-    var onItemClickListener: AdapterInterface.OnItemClickListener? = null
+    var onItemClickListener: OnItemClickListener<SearchModel>? = null
 
     private var mItems = emptyList<SearchModel>()
     fun setItems(items: List<SearchModel>) {
@@ -39,13 +38,8 @@ class SearchAdapter @Inject constructor() :
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val item = mItems.get(position)
         holder.binding.item = item
-        ImageUtil.showImage(
-            holder.itemView.context,
-            item.poster,
-            holder.binding.imgCategoryIcon
-        )
         holder.itemView.setOnClickListener {
-            onItemClickListener?.onItemClick(position)
+            onItemClickListener?.onItemClick(item)
         }
 
     }

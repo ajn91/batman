@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import jafari.alireza.batman.data.domain.details.DetailsModel
 
 
-@Entity
+@Entity(tableName = "details")
 data class DetailsEntity(
     @PrimaryKey
     val imdbID: String,

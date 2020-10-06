@@ -9,7 +9,7 @@ import jafari.alireza.batman.R
 import jafari.alireza.batman.data.domain.search.SearchModel
 import jafari.alireza.batman.data.source.remote.ResponseStatus
 import jafari.alireza.batman.databinding.SearchActivityBinding
-import jafari.alireza.batman.ui.appinterface.AdapterInterface
+import jafari.alireza.batman.ui.appinterface.OnItemClickListener
 import jafari.alireza.batman.ui.base.BaseActivity
 import jafari.alireza.batman.ui.details.DetailsActivity
 import jafari.alireza.batman.utils.DetailsParams
@@ -19,9 +19,8 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class SearchActivity : BaseActivity<SearchActivityBinding, SearchViewModel>(),
-    AdapterInterface.OnItemClickListener {
+    OnItemClickListener<SearchModel> {
     override val mViewModel: SearchViewModel by viewModels()
-
 
 
     @Inject
@@ -120,8 +119,8 @@ class SearchActivity : BaseActivity<SearchActivityBinding, SearchViewModel>(),
     }
 
 
-    override fun onItemClick(position: Int) {
-        mViewModel.onItemClick(position)
+    override fun onItemClick(item: SearchModel) {
+        mViewModel.onItemClick(item)
     }
 
 

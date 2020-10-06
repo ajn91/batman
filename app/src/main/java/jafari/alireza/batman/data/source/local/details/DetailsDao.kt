@@ -11,7 +11,7 @@ import jafari.alireza.batman.data.source.local.details.entity.DetailsEntity
 
 @Dao
 interface DetailsDao {
-    @Query("select * from DetailsEntity WHERE imdbID = :id")
+    @Query("select * from details WHERE imdbID = :id")
     fun getDetailsItem(id: String): Flowable<List<DetailsEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

@@ -11,7 +11,7 @@ import io.reactivex.Flowable
 
 @Dao
 interface SearchDao {
-    @Query("select * from SearchEntity")
+    @Query("select * from searches")
     fun getSearches(): Flowable<List<SearchEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

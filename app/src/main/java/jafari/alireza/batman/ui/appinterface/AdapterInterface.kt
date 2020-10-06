@@ -1,10 +1,8 @@
 package jafari.alireza.batman.ui.appinterface
 
-interface AdapterInterface {
 
-    interface OnItemClickListener {
-        fun onItemClick(position: Int)
-
-    }
+interface OnItemClickListener<T> {
+    fun onItemClick(item: T)
 
 }
+

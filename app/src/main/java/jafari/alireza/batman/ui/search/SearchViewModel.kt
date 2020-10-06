@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ActivityRetainedScoped
+import jafari.alireza.batman.data.domain.search.SearchModel
 import jafari.alireza.batman.data.repository.search.SearchRepository
 import jafari.alireza.batman.ui.base.BaseViewModel
 import jafari.alireza.batman.ui.base.toLiveData
@@ -47,11 +48,11 @@ constructor(
 //        )
     }
 
-    fun onItemClick(position: Int) {
-        val id = itemsLive.value?.second?.get(position)?.imdbID
-        if (id != null) {
-            _directToPageLive.value = DirectionParamName.DetailsParams(id)
-        }
+    fun onItemClick(item: SearchModel) {
+//        val id = itemsLive.value?.second?.get(position)?.imdbID
+//        if (id != null) {
+        _directToPageLive.value = DirectionParamName.DetailsParams(item.imdbID)
+//        }
 
     }
 

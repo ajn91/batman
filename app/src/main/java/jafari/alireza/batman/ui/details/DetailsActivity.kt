@@ -14,7 +14,6 @@ import jafari.alireza.batman.data.domain.details.DetailsModel
 import jafari.alireza.batman.data.source.remote.ResponseStatus
 import jafari.alireza.batman.databinding.DetailsActivityBinding
 import jafari.alireza.batman.ui.base.BaseActivity
-import jafari.alireza.batman.utils.ImageUtil
 
 @AndroidEntryPoint
 class DetailsActivity : BaseActivity<DetailsActivityBinding, DetailsViewModel>() {
@@ -49,41 +48,38 @@ class DetailsActivity : BaseActivity<DetailsActivityBinding, DetailsViewModel>()
     }
 
     private fun handleDetails(details: Pair<ResponseStatus, DetailsModel?>) {
-        val status = details.first
-        when (status) {
-            is ResponseStatus.SUCCESS -> {
-                viewDataBinding?.collapsingToolbar?.setTitleEnabled(true);
+        try {
 
-                details.second.let {
 
-                    ImageUtil.showImage(
-                        this,
-                        it?.poster, viewDataBinding?.imgBackground!!
-                    )
-                    ImageUtil.showImage(
-                        this,
-                        it?.poster, viewDataBinding?.imgPoster!!
-                    )
-                    supportActionBar?.title = it?.title
-                    viewDataBinding?.collapsingToolbar?.title = it?.title
-                    getExpandableOption()
-                        .addReadMoreTo(viewDataBinding?.txtPlot, it?.plot)
-                    viewDataBinding?.rtb?.rating = it?.imdbRating?.toFloat() ?: 0f
+            val status = details.first
+            when (status) {
+                is ResponseStatus.SUCCESS -> {
+                    viewDataBinding?.collapsingToolbar?.setTitleEnabled(true);
 
+                    details.second.let {
+
+                        supportActionBar?.title = it?.title
+                        viewDataBinding?.collapsingToolbar?.title = it?.title
+                        getExpandableOption()
+                            .addReadMoreTo(viewDataBinding?.txtPlot, it?.plot)
+                        viewDataBinding?.rtb?.rating = it?.imdbRating?.toFloat() ?: 0f
+
+                    }
+
+                }
+                is ResponseStatus.LOADING -> {
+                    viewDataBinding?.txtListStatus?.text = getString(R.string.loading)
+                }
+                is ResponseStatus.ERROR -> {
+//                viewDataBinding?.appbar?.setExpanded(false)
+                    viewDataBinding?.collapsingToolbar?.setTitleEnabled(false)
+                    viewDataBinding?.txtListStatus?.text = status.message
                 }
 
             }
-            is ResponseStatus.LOADING -> {
-                viewDataBinding?.txtListStatus?.text = getString(R.string.loading)
-            }
-            is ResponseStatus.ERROR -> {
-//                viewDataBinding?.appbar?.setExpanded(false)
-                viewDataBinding?.collapsingToolbar?.setTitleEnabled(false)
-                viewDataBinding?.txtListStatus?.text = status.message
-            }
+        } catch (e: IllegalArgumentException) {
 
         }
-
 
     }
 
