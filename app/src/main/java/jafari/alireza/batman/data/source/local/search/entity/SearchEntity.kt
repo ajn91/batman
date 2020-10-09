@@ -18,10 +18,10 @@ import jafari.alireza.batman.data.domain.search.SearchModel
 data class SearchEntity constructor(
     @PrimaryKey
     val imdbID: String,
-    val title: String,
-    val year: String,
-    val type: String,
-    val poster: String
+    val title: String?,
+    val year: String?,
+    val type: String?,
+    val poster: String?
 )
 
 /**

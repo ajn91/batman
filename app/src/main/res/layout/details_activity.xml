@@ -42,7 +42,7 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:visibility="@{viewModel.detailsResourceLive.second  !=null ? View.VISIBLE:View.GONE}"
+                        android:visibility="@{viewModel.detailsResourceLive.data != null ? View.VISIBLE:View.GONE}"
                         app:layout_collapseMode="parallax"
 
                         >
@@ -53,7 +53,7 @@
                             android:layout_height="@dimen/details_image_background_height"
                             android:fitsSystemWindows="true"
                             android:scaleType="centerCrop"
-                            app:imageUrl="@{viewModel.detailsResourceLive.second.poster}"
+                            app:imageUrl="@{viewModel.detailsResourceLive.data.poster}"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -77,7 +77,7 @@
                             android:layout_marginStart="16dp"
                             android:layout_marginBottom="16dp"
                             android:fitsSystemWindows="true"
-                            app:imageUrl="@{viewModel.detailsResourceLive.second.poster}"
+                            app:imageUrl="@{viewModel.detailsResourceLive.data.poster}"
                             app:layout_constraintBottom_toBottomOf="@+id/img_background"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/img_background" />
@@ -88,7 +88,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp"
-                            android:text="@{viewModel.detailsLive.title}"
+                            android:text="@{viewModel.detailsResourceLive.data.title}"
                             app:layout_constraintBottom_toTopOf="@+id/txt_year"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="@+id/txt_year" />
@@ -100,7 +100,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
                             android:layout_marginBottom="16dp"
-                            android:text="@{viewModel.detailsLive.year}"
+                            android:text="@{viewModel.detailsResourceLive.data.year}"
                             app:layout_constraintBottom_toBottomOf="@+id/img_poster"
                             app:layout_constraintStart_toEndOf="@+id/img_poster" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -121,7 +121,7 @@
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="@{viewModel.detailsResourceLive.second  !=null ? View.VISIBLE:View.GONE}"
+                android:visibility="@{viewModel.detailsResourceLive.data != null ? View.VISIBLE:View.GONE}"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -145,7 +145,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
-                        android:text="@{viewModel.detailsLive.genre}"
+                        android:text="@{viewModel.detailsResourceLive.data.genre}"
                         app:layout_constraintBaseline_toBaselineOf="@+id/txt_genre_label"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/rtb"
@@ -166,7 +166,7 @@
                         style="@style/TextStyle.SubTitle.Bold"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.detailsLive.director}"
+                        android:text="@{viewModel.detailsResourceLive.data.director}"
                         app:layout_constraintBaseline_toBaselineOf="@+id/txt_director_label"
                         app:layout_constraintEnd_toEndOf="@+id/txt_genre"
                         app:layout_constraintStart_toStartOf="@+id/txt_genre"
@@ -187,7 +187,7 @@
                         style="@style/TextStyle.SubTitle.Bold"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.detailsLive.writer}"
+                        android:text="@{viewModel.detailsResourceLive.data.writer}"
                         app:layout_constraintBaseline_toBaselineOf="@+id/txt_writer_label"
                         app:layout_constraintEnd_toEndOf="@+id/txt_director"
                         app:layout_constraintStart_toStartOf="@+id/txt_director"
@@ -211,7 +211,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
-                        android:text="@{viewModel.detailsLive.actors}"
+                        android:text="@{viewModel.detailsResourceLive.data.actors}"
                         app:layout_constraintEnd_toEndOf="@+id/txt_writer"
                         app:layout_constraintStart_toStartOf="@+id/txt_actors_label"
                         app:layout_constraintTop_toBottomOf="@+id/txt_actors_label"
@@ -235,6 +235,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="16dp"
+                        android:text="@{viewModel.detailsResourceLive.data.plot}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/txt_actors"
                         app:layout_constraintLeft_toLeftOf="parent"
@@ -268,7 +269,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="@{viewModel.detailsLive.rated}"
+                        android:text="@{viewModel.detailsResourceLive.data.rated}"
                         app:layout_constraintStart_toStartOf="@+id/txt_rated_label"
                         app:layout_constraintTop_toBottomOf="@+id/txt_rated_label"
                         tools:text="@string/genre" />
@@ -290,7 +291,7 @@
                         style="@style/TextStyle.SubTitle.Bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.detailsLive.released}"
+                        android:text="@{viewModel.detailsResourceLive.data.released}"
                         app:layout_constraintBaseline_toBaselineOf="@+id/txt_rated"
                         app:layout_constraintStart_toStartOf="@+id/txt_released_label"
                         tools:text="@string/genre" />
@@ -312,7 +313,7 @@
                         style="@style/TextStyle.SubTitle.Bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.detailsLive.runtime}"
+                        android:text="@{viewModel.detailsResourceLive.data.runtime}"
                         app:layout_constraintBaseline_toBaselineOf="@+id/txt_released"
                         app:layout_constraintStart_toStartOf="@+id/txt_runtime_label"
                         tools:text="@string/genre" />
@@ -346,7 +347,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:text="@{viewModel.detailsLive.imdbRating}"
+                        android:text="@{viewModel.detailsResourceLive.data.imdbRating}"
                         app:layout_constraintBaseline_toBaselineOf="@+id/txt_imdb_rating_label"
                         app:layout_constraintStart_toEndOf="@+id/rtb"
                         tools:text="@string/genre" />
@@ -362,7 +363,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:visibility="@{viewModel.detailsResourceLive.second  !=null ? View.GONE:View.VISIBLE}" />
+            android:visibility="@{viewModel.detailsResourceLive.data != null ? View.GONE:View.VISIBLE}" />
     </FrameLayout>
 
 </layout>

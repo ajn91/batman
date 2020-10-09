@@ -1,20 +1,20 @@
 package jafari.alireza.batman.data.source.remote.api
 
-import io.reactivex.Observable
-import jafari.alireza.batman.data.source.remote.pojo.details.DetailsNetwork
-import jafari.alireza.batman.data.source.remote.pojo.search.SearchNetworkResponse
+import jafari.alireza.batman.data.source.remote.details.pojo.DetailsNetwork
+import jafari.alireza.batman.data.source.remote.search.pojo.SearchNetworkResponse
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface ApiService {
 
     @GET("/")
-    fun getSearch(
+    suspend fun getSearchList(
         @Query("s") search: String = "batman",
-    ): Observable<SearchNetworkResponse>
+    ): Response<SearchNetworkResponse>
 
     @GET("/")
-    fun getDetails(
+    suspend fun getDetails(
         @Query("i") id: String
-    ): Observable<DetailsNetwork>
+    ): Response<DetailsNetwork>
 }

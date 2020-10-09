@@ -6,8 +6,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import jafari.alireza.batman.BR
 import jafari.alireza.batman.R
+import jafari.alireza.batman.data.Resource
+import jafari.alireza.batman.data.Status
 import jafari.alireza.batman.data.domain.search.SearchModel
-import jafari.alireza.batman.data.source.remote.ResponseStatus
 import jafari.alireza.batman.databinding.SearchActivityBinding
 import jafari.alireza.batman.ui.appinterface.OnItemClickListener
 import jafari.alireza.batman.ui.base.BaseActivity
@@ -35,7 +36,7 @@ class SearchActivity : BaseActivity<SearchActivityBinding, SearchViewModel>(),
         return R.layout.search_activity
     }
 
-    override fun createViewModelObserver() {
+    override fun setupObserver() {
 
 //        mViewModel =
 //            ViewModelProvider(this, viewModelFactory).get(SearchViewModel::class.java)
@@ -75,18 +76,19 @@ class SearchActivity : BaseActivity<SearchActivityBinding, SearchViewModel>(),
 
     }
 
-    private fun handleItems(items: Pair<ResponseStatus, List<SearchModel>?>) {
-        val status = items.first
-        when (status) {
-            is ResponseStatus.SUCCESS -> {
-                if (items.second != null)
-                    searchAdapter.setItems(items.second!!)
+    private fun handleItems(response: Resource<List<SearchModel>?>) {
+        when (response.status) {
+            Status.SUCCESS -> {
+                response.data?.let {
+                    searchAdapter.setItems(it)
+                }
             }
-            is ResponseStatus.LOADING -> {
+            Status.LOADING -> {
                 viewDataBinding?.txtListStatus?.text = getString(R.string.loading)
             }
-            is ResponseStatus.ERROR -> {
-                viewDataBinding?.txtListStatus?.text = status.message
+            Status.ERROR -> {
+                searchAdapter.setItems(emptyList())
+                viewDataBinding?.txtListStatus?.text = response.message
             }
 
         }

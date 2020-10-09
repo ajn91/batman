@@ -1,19 +1,19 @@
 package jafari.alireza.batman.data.source.local.details
 
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import io.reactivex.Flowable
 import jafari.alireza.batman.data.source.local.details.entity.DetailsEntity
 
 
 @Dao
 interface DetailsDao {
     @Query("select * from details WHERE imdbID = :id")
-    fun getDetailsItem(id: String): Flowable<List<DetailsEntity>>
+    fun getDetails(id: String): LiveData<List<DetailsEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertDetailsItem(item: DetailsEntity)
+    suspend fun insertDetails(item: DetailsEntity?)
 }

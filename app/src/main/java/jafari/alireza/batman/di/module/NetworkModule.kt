@@ -1,6 +1,7 @@
 package jafari.alireza.batman.di.module
 
 import android.content.Context
+import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -9,12 +10,13 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import jafari.alireza.batman.data.source.remote.api.ApiService
 import jafari.alireza.batman.data.source.remote.interceptor.NetworkInterceptor
 import jafari.alireza.batman.data.source.remote.interceptor.RequestInterceptor
+import jafari.alireza.batman.data.source.remote.jsonadapters.StringToBooleanAdapter
+import jafari.alireza.batman.data.source.remote.jsonadapters.StringToFloatAdapter
 import jafari.alireza.batman.utils.NetworkUtil
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.io.File
 import java.util.concurrent.TimeUnit
@@ -25,14 +27,14 @@ import javax.inject.Singleton
 @InstallIn(ApplicationComponent::class)
 class NetworkModule {
 
-//    @Provides
+    //    @Provides
 //    @Singleton
 //    internal fun provideGson() =
 //        GsonBuilder().create()
-//    @Provides
-//    @Singleton
-//    internal fun provideMoshi() =
-//    Moshi.Builder().build()
+    @Provides
+    @Singleton
+    internal fun provideMoshi() =
+        Moshi.Builder().add(StringToBooleanAdapter).add(StringToFloatAdapter).build()
 
 
     @Provides
@@ -83,14 +85,13 @@ class NetworkModule {
     @Singleton
     fun provideRetrofit(
         okHttpClient: OkHttpClient,
+        moshi: Moshi,
         @Named("serverUrl") serverUrl: String
     ): Retrofit {
         return Retrofit.Builder()
             .client(okHttpClient)
             .baseUrl(serverUrl)
-//            .addConverterFactory(GsonConverterFactory.create(gson))
-            .addConverterFactory(MoshiConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
     }
 

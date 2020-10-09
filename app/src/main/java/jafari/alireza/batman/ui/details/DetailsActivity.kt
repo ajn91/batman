@@ -3,15 +3,14 @@ package jafari.alireza.batman.ui.details
 import android.graphics.PorterDuff
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
-import com.devs.readmoreoption.ReadMoreOption
 import com.google.android.material.appbar.AppBarLayout
 import dagger.hilt.android.AndroidEntryPoint
 import jafari.alireza.batman.BR
 import jafari.alireza.batman.R
+import jafari.alireza.batman.data.Resource
+import jafari.alireza.batman.data.Status
 import jafari.alireza.batman.data.domain.details.DetailsModel
-import jafari.alireza.batman.data.source.remote.ResponseStatus
 import jafari.alireza.batman.databinding.DetailsActivityBinding
 import jafari.alireza.batman.ui.base.BaseActivity
 
@@ -28,7 +27,7 @@ class DetailsActivity : BaseActivity<DetailsActivityBinding, DetailsViewModel>()
         return R.layout.details_activity
     }
 
-    override fun createViewModelObserver() {
+    override fun setupObserver() {
 
         mViewModel.detailsResourceLive.observe(this, ::handleDetails)
         mViewModel.messageStringLive.observe(this, ::handleMessage)
@@ -47,50 +46,47 @@ class DetailsActivity : BaseActivity<DetailsActivityBinding, DetailsViewModel>()
 
     }
 
-    private fun handleDetails(details: Pair<ResponseStatus, DetailsModel?>) {
-        try {
+    private fun handleDetails(response: Resource<DetailsModel?>) {
 
+        when (response.status) {
+            Status.SUCCESS -> {
 
-            val status = details.first
-            when (status) {
-                is ResponseStatus.SUCCESS -> {
+                response.data?.let {
                     viewDataBinding?.collapsingToolbar?.setTitleEnabled(true);
+                    supportActionBar?.title = it.title
+                    viewDataBinding?.collapsingToolbar?.title = it.title
+//                   it.plot?.let {
 
-                    details.second.let {
+//                        getExpandableOption()
+//                            .addReadMoreTo(viewDataBinding?.txtPlot, it.plot?:"")
+//                   }
+                    viewDataBinding?.rtb?.rating = it.imdbRating
 
-                        supportActionBar?.title = it?.title
-                        viewDataBinding?.collapsingToolbar?.title = it?.title
-                        getExpandableOption()
-                            .addReadMoreTo(viewDataBinding?.txtPlot, it?.plot)
-                        viewDataBinding?.rtb?.rating = it?.imdbRating?.toFloat() ?: 0f
-
-                    }
-
-                }
-                is ResponseStatus.LOADING -> {
-                    viewDataBinding?.txtListStatus?.text = getString(R.string.loading)
-                }
-                is ResponseStatus.ERROR -> {
-//                viewDataBinding?.appbar?.setExpanded(false)
-                    viewDataBinding?.collapsingToolbar?.setTitleEnabled(false)
-                    viewDataBinding?.txtListStatus?.text = status.message
                 }
 
             }
-        } catch (e: IllegalArgumentException) {
+            Status.LOADING -> {
+                viewDataBinding?.txtListStatus?.text = getString(R.string.loading)
+            }
+            Status.ERROR -> {
+//                viewDataBinding?.appbar?.setExpanded(false)
+                viewDataBinding?.collapsingToolbar?.setTitleEnabled(false)
+                viewDataBinding?.txtListStatus?.text = response.message
+            }
 
         }
 
+
     }
 
-    private fun getExpandableOption() =
-        ReadMoreOption.Builder(this)
-            .textLength(2, ReadMoreOption.TYPE_LINE)
-            .moreLabelColor(ContextCompat.getColor(this, R.color.colorAccent))
-            .lessLabelColor(ContextCompat.getColor(this, R.color.colorAccent))
-            .labelUnderLine(true)
-            .expandAnimation(true)
-            .build()
+//    private fun getExpandableOption() =
+//        ReadMoreOption.Builder(this)
+//            .textLength(2, ReadMoreOption.TYPE_LINE)
+//            .moreLabelColor(ContextCompat.getColor(this, R.color.colorAccent))
+//            .lessLabelColor(ContextCompat.getColor(this, R.color.colorAccent))
+//            .labelUnderLine(true)
+//            .expandAnimation(true)
+//            .build()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -104,9 +100,6 @@ class DetailsActivity : BaseActivity<DetailsActivityBinding, DetailsViewModel>()
         setSupportActionBar(viewDataBinding?.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         setUpAppBar()
-        viewDataBinding?.txtActors?.setOnClickListener {
-            mViewModel.getDetails()
-        }
     }
 
     private fun setUpAppBar() {

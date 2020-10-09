@@ -12,18 +12,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(ApplicationComponent::class)
 class AppModule {
-//    @get:Provides
-//    @Provides
-//    @ApplicationScope
-//    internal fun provideApplication(): Application {
-//        return application
-//    }
-
-//    @Provides
-//    @ApplicationScope
-//    fun provideContext(appContext: Context): Context {
-//        return appContext.applicationContext
-//    }
 
     @Provides
     @Singleton

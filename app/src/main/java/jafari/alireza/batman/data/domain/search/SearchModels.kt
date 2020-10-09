@@ -12,10 +12,10 @@ package jafari.alireza.batman.data.domain.search
 
 data class SearchModel(
     val imdbID: String,
-    val title: String,
-    val year: String,
-    val type: String,
-    val poster: String
+    val title: String?,
+    val year: String?,
+    val type: String?,
+    val poster: String?
 ) {
 
 }

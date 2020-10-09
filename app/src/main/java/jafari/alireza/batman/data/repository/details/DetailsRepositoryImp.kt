@@ -1,76 +1,44 @@
 package jafari.alireza.batman.data.repository.details
 
 import android.content.Context
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.map
 import dagger.hilt.android.qualifiers.ApplicationContext
-import io.reactivex.Flowable
-import io.reactivex.schedulers.Schedulers
 import jafari.alireza.batman.R
+import jafari.alireza.batman.data.Resource
 import jafari.alireza.batman.data.domain.details.DetailsModel
-import jafari.alireza.batman.data.source.local.details.DetailsDao
+import jafari.alireza.batman.data.performGetOperation
+import jafari.alireza.batman.data.source.local.details.DetailsLocalDataSource
 import jafari.alireza.batman.data.source.local.details.entity.asDomainModel
-import jafari.alireza.batman.data.source.remote.ResponseStatus
-import jafari.alireza.batman.data.source.remote.api.ApiService
-import jafari.alireza.batman.data.source.remote.pojo.details.asDatabaseEntity
+import jafari.alireza.batman.data.source.remote.details.DetailsRemoteDataSource
+import jafari.alireza.batman.data.source.remote.details.pojo.DetailsNetwork
+import jafari.alireza.batman.data.source.remote.details.pojo.asDatabaseEntity
 import jafari.alireza.batman.utils.NetworkUtil
 import javax.inject.Inject
 
 class DetailsRepositoryImp @Inject constructor(
-    val apiService: ApiService,
-    val detailsDao: DetailsDao,
+    val remoteDataSource: DetailsRemoteDataSource,
+    val localDataSource: DetailsLocalDataSource,
     val networkUtil: NetworkUtil,
     @ApplicationContext val context: Context
 ) : DetailsRepository {
 
-    override fun getDetails(id: String): Flowable<Pair<ResponseStatus, DetailsModel?>> {
-        val hasConnection = networkUtil.isConnectedToInternet()
-        if (hasConnection)
-            getDetailsFromApi(id)
 
-        return getDetailsFromDb(id).map {
-            if (it.size == 0) {
-                if (hasConnection)
-                    Pair(
-                        ResponseStatus.ERROR(context.getString(R.string.empty_data)),
-                        null
-                    )
-//                    Resource.error(context.getString(R.string.empty_data), null)
-                else
-                    Pair(
-                        ResponseStatus.ERROR(context.getString(R.string.empty_data_no_network)),
-                        null
-                    )
-
-//                        Resource.error(context.getString(R.string.empty_data_no_network), null)
-            } else
-                Pair(ResponseStatus.SUCCESS(), it[0])
-//                Resource.success(it[0])
-        }.startWith(
-            Pair(ResponseStatus.LOADING(), null)
+    override fun getDetails(id: String): LiveData<Resource<DetailsModel?>> {
+        val networkStatus = networkUtil.isConnectedToInternet()
+        return performGetOperation<DetailsModel, DetailsNetwork>(
+            if (networkStatus) context.getString(R.string.no_item_available) else context.getString(
+                R.string.no_item_no_internet
+            ),
+            localFetch = {
+                localDataSource.getDetails(id).map {
+                    if (it.size > 0) it.get(0).asDomainModel() else null
+                }
+            },
+            remoteFetch = if (networkStatus) ({ remoteDataSource.getDetails(id) }) else null,
+            saveRemoteResult = { localDataSource.saveDetails(it.asDatabaseEntity()) }
         )
-            .onErrorReturn {
-                Pair(
-                    ResponseStatus.ERROR(it.message ?: "error"),
-                    null
-                )
-
-
-//                Resource.error(it.message ?: "error", null)
-            }
-
-
     }
 
-    fun getDetailsFromApi(id: String) =
-        apiService.getDetails(id).subscribeOn(Schedulers.io())
-            .observeOn(Schedulers.io())
-            .subscribe({ response ->
-                detailsDao.insertDetailsItem(response.asDatabaseEntity())
-
-            }, { error ->
-            })
-
-    fun getDetailsFromDb(id: String): Flowable<List<DetailsModel>> =
-        detailsDao.getDetailsItem(id)
-            .map { it.asDomainModel() }
 
 }

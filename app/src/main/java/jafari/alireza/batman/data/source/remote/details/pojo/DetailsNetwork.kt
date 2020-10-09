@@ -1,61 +1,62 @@
-package jafari.alireza.batman.data.source.remote.pojo.details
+package jafari.alireza.batman.data.source.remote.details.pojo
 
 
 import com.squareup.moshi.Json
 import jafari.alireza.batman.data.domain.details.DetailsModel
 import jafari.alireza.batman.data.source.local.details.entity.DetailsEntity
+import jafari.alireza.batman.data.source.remote.jsonadapters.StringToFloat
 
 data class DetailsNetwork(
     @field:Json(name = "Title")
-    val title: String,
+    val title: String?,
     @field:Json(name = "Year")
-    val year: String,
+    val year: String?,
     @field:Json(name = "Rated")
-    val rated: String,
+    val rated: String?,
     @field:Json(name = "Released")
-    val released: String,
+    val released: String?,
     @field:Json(name = "Runtime")
-    val runtime: String,
+    val runtime: String?,
     @field:Json(name = "Genre")
-    val genre: String,
+    val genre: String?,
     @field:Json(name = "Director")
-    val director: String,
+    val director: String?,
     @field:Json(name = "Writer")
-    val writer: String,
+    val writer: String?,
     @field:Json(name = "Actors")
-    val actors: String,
+    val actors: String?,
     @field:Json(name = "Plot")
-    val plot: String,
+    val plot: String?,
     @field:Json(name = "Language")
-    val language: String,
+    val language: String?,
     @field:Json(name = "Country")
-    val country: String,
+    val country: String?,
     @field:Json(name = "Awards")
-    val awards: String,
+    val awards: String?,
     @field:Json(name = "Poster")
-    val poster: String,
+    val poster: String?,
     @field:Json(name = "Ratings")
-    val rating: List<RatingNetwork>,
+    val rating: List<RatingNetwork>?,
     @field:Json(name = "Metascore")
-    val metascore: String,
-    @field:Json(name = "imdbRating")
-    val imdbRating: String,
+    val metascore: String?,
+    @StringToFloat @Json(name = "imdbRating")
+    val imdbRating: Float,
     @field:Json(name = "imdbVotes")
-    val imdbVotes: String,
+    val imdbVotes: String?,
     @field:Json(name = "imdbID")
-    val imdbID: String,
+    val imdbID: String?,
     @field:Json(name = "Type")
-    val type: String,
+    val type: String?,
     @field:Json(name = "DVD")
-    val dVD: String,
+    val dVD: String?,
     @field:Json(name = "BoxOffice")
-    val boxOffice: String,
+    val boxOffice: String?,
     @field:Json(name = "Production")
-    val production: String,
+    val production: String?,
     @field:Json(name = "Website")
-    val website: String,
+    val website: String?,
     @field:Json(name = "Response")
-    val response: String
+    val response: String?
 )
 
 fun DetailsNetwork.asDomainModel(): DetailsModel {
@@ -75,7 +76,7 @@ fun DetailsNetwork.asDomainModel(): DetailsModel {
         country = this.country,
         awards = this.awards,
         poster = this.poster,
-        rating = this.rating.asDomainModel(),
+        rating = this.rating?.asDomainModel(),
         metascore = this.metascore,
         imdbRating = this.imdbRating,
         imdbVotes = this.imdbVotes,
@@ -95,7 +96,7 @@ fun DetailsNetwork.asDomainModel(): DetailsModel {
 
 fun DetailsNetwork.asDatabaseEntity(): DetailsEntity {
     return DetailsEntity(
-        imdbID = this.imdbID,
+        imdbID = this.imdbID ?: "0",
         title = this.title,
         year = this.year,
         rated = this.rated,
@@ -110,7 +111,7 @@ fun DetailsNetwork.asDatabaseEntity(): DetailsEntity {
         country = this.country,
         awards = this.awards,
         poster = this.poster,
-        rating = this.rating.asDatabaseEntity(),
+        rating = this.rating?.asDatabaseEntity(),
         metascore = this.metascore,
         imdbRating = this.imdbRating,
         imdbVotes = this.imdbVotes,

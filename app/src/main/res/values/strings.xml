@@ -14,6 +14,10 @@
     <string name="released">Released</string>
     <string name="runtime">Runtime</string>
     <string name="imdb_rating">imdb Rating</string>
+    <string name="no_item_available">No item available</string>
+    <string name="no_item_no_internet">"No item available.
+    Please check your internet connection."
+    </string>
 
 
 </resources>

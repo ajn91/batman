@@ -57,58 +57,59 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
-    /*kotlin*/
+    //Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$library.kotlin"
 
-    /* androidx */
+    //Androidx
     implementation "androidx.appcompat:appcompat:$library.appcompat"
     implementation "androidx.recyclerview:recyclerview:$library.recyclerview"
 
-    /* google material design */
+    //Google material design
     implementation "com.google.android.material:material:$library.material"
 
-    /* Retrofit using  Okhttp, Okhttp logging interceptor, Gson  */
+    //Retrofit using  Okhttp, Okhttp logging interceptor, Gson
     implementation "com.squareup.retrofit2:retrofit:$library.retrofit"
-//    implementation "com.squareup.retrofit2:converter-gson:$library.retrofit"
     implementation "com.squareup.retrofit2:converter-moshi:$library.retrofit"
 
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$library.retrofit"
-    /* Okhttp */
+    //Okhttp
     implementation "com.squareup.okhttp3:logging-interceptor:$library.okhttp"
 
-    /* RxJava2 */
-    implementation "io.reactivex.rxjava2:rxjava:$library.rxjava"
-    implementation "com.jakewharton.rxrelay2:rxrelay:$library.rxrelay"
-    implementation "io.reactivex.rxjava2:rxandroid:$library.rxandroid"
 
 
-    /* Android Architecture Component - ConstraintLayout  */
+    //Android Architecture Component - ConstraintLayout
     implementation "androidx.constraintlayout:constraintlayout:$library.constraintlayout"
 
-    /* Android Architecture Component - Room Persistance Lib  */
+    //Room
     implementation "androidx.room:room-runtime:$library.room"
-    implementation "androidx.room:room-rxjava2:$library.room"
     kapt "androidx.room:room-compiler:$library.room"
+    implementation "androidx.room:room-ktx:$library.room"
 
-    /* Hilt */
+
+    //Hilt
     implementation "com.google.dagger:hilt-android:$library.hilt"
     kapt "com.google.dagger:hilt-android-compiler:$library.hilt"
 
-
-    /* Hilt Androidx */
+    //Hilt Androidx
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:$library.hilt_androidx"
     kapt "androidx.hilt:hilt-compiler:$library.hilt_androidx"
 
-    /* glide */
+    //glide
     implementation "com.github.bumptech.glide:glide:$library.glide"
     kapt "com.github.bumptech.glide:compiler:$library.glide"
-    /* Expandable TextView */
-    implementation "com.github.devendroid:ReadMoreOption:$library.expandable_textview"
 
-    /* Activity ktx */
+    //Expandable TextView
+//    implementation "com.github.devendroid:ReadMoreOption:$library.expandable_textview"
+
+    //Activity ktx
     implementation "androidx.activity:activity-ktx:$library.activity_version"
-    /* Reactive Stream */
-    implementation "androidx.lifecycle:lifecycle-reactivestreams-ktx:$library.reactive_stream"
+
+
+    //Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$library.coroutines"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$library.coroutines"
+
+    //Lifecycle
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$library.lifecycle"
 
 
 }

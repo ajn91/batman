@@ -27,7 +27,7 @@ abstract class BaseActivity<T : ViewDataBinding, V : BaseViewModel> : AppCompatA
     @LayoutRes
     abstract fun getLayoutId(): Int
 
-    abstract fun createViewModelObserver()
+    abstract fun setupObserver()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +38,7 @@ abstract class BaseActivity<T : ViewDataBinding, V : BaseViewModel> : AppCompatA
 
     private fun performDataBinding() {
         viewDataBinding = DataBindingUtil.setContentView(this, getLayoutId())
-        createViewModelObserver()
+        setupObserver()
         viewDataBinding!!.setVariable(getBindingVariable().first, getBindingVariable().second)
         viewDataBinding!!.lifecycleOwner = this
         viewDataBinding!!.executePendingBindings()

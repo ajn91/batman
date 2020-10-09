@@ -1,4 +1,4 @@
-package jafari.alireza.batman.data.source.remote.pojo.details
+package jafari.alireza.batman.data.source.remote.details.pojo
 
 
 import com.squareup.moshi.Json

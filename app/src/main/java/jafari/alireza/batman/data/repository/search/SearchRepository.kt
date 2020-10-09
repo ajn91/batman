@@ -1,12 +1,12 @@
 package jafari.alireza.batman.data.repository.search
 
-import io.reactivex.Flowable
+import androidx.lifecycle.LiveData
+import jafari.alireza.batman.data.Resource
 import jafari.alireza.batman.data.domain.search.SearchModel
-import jafari.alireza.batman.data.source.remote.ResponseStatus
 
 interface SearchRepository {
 
-    fun getSearch(): Flowable<Pair<ResponseStatus, List<SearchModel>?>>
+    fun getSearch(): LiveData<Resource<List<SearchModel>?>>
 
 
 }
